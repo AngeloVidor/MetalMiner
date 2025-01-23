@@ -8,8 +8,12 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        CollectData data = new CollectData();
-        await data.SearchForDataAsync("Abigor", "");
+        // CollectData data = new CollectData();
+        // await data.SearchForDataAsync("Abigor", "");
+        Menu menu = new Menu();
+
+        int input = 1;
+        await menu.DisplayMenu(input);
                 
     }
 }

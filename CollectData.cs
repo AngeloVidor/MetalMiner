@@ -12,15 +12,15 @@ namespace scrap
     public class CollectData
     {
         
-        public async Task SearchForDataAsync(string inputName, string genre)
+        public async Task SearchForDataAsync(string name, string? genre)
         {
             Console.WriteLine("Searching for data...");
 
             string baseUrl = "https://www.metal-archives.com/search/ajax-advanced/searching/bands/";
 
-            string bandName = Uri.EscapeDataString(inputName);
+            string nameParam = Uri.EscapeDataString(name);
             string genreParam = Uri.EscapeDataString(genre);
-            string url = $"{baseUrl}?bandName={bandName}&genre={genreParam}&country=&yearCreationFrom=&yearCreationTo=&bandNotes=&status=&themes=&location=&bandLabelName=&sEcho=1&iColumns=3&sColumns=&iDisplayStart=0&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2";
+            string url = $"{baseUrl}?bandName={nameParam}&genre={genreParam}&country=&yearCreationFrom=&yearCreationTo=&bandNotes=&status=&themes=&location=&bandLabelName=&sEcho=1&iColumns=3&sColumns=&iDisplayStart=0&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2";
 
             using (HttpClient client = new HttpClient())
             {
