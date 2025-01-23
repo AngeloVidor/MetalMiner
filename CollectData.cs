@@ -11,8 +11,8 @@ namespace scrap
 {
     public class CollectData
     {
-        
-        public async Task SearchForDataAsync(string name, string? genre)
+
+        public async Task<List<BandSearchResponse?>> SearchForDataAsync(string name, string? genre)
         {
             Console.WriteLine("Searching for data...");
 
@@ -43,6 +43,8 @@ namespace scrap
                             {
                                 Console.WriteLine("Bands found:");
 
+                                List<BandSearchResponse> bandSearchResponses = new List<BandSearchResponse>();
+
                                 foreach (var bandData in jsonData.AaData)
                                 {
                                     HtmlDocument htmlDoc = new HtmlDocument();
@@ -51,8 +53,17 @@ namespace scrap
                                     string bandNameResult = htmlDoc.DocumentNode.InnerText.Trim();
                                     string genreResult = bandData[1];
                                     string countryResult = bandData[2];
+
+                                    var bandSearchResponse = new BandSearchResponse
+                                    {
+                                        BandName = bandNameResult,
+                                        Genre = genreResult,
+                                        Country = countryResult
+                                    };
+                                    bandSearchResponses.Add(bandSearchResponse);
                                     Console.WriteLine($"Band: {bandNameResult}, Genre: {genreResult}, Country: {countryResult}");
                                 }
+                                return bandSearchResponses;
                             }
                             else
                             {
@@ -74,6 +85,7 @@ namespace scrap
                     Console.WriteLine($"Exception occurred: {ex.Message}");
                 }
             }
+            return null;
         }
 
 
