@@ -41,7 +41,7 @@ namespace scrap
                     _bandName = Console.ReadLine();
                     Console.WriteLine("Enter the genre of the band you want to see the discography of:");
                     _bandGenre = Console.ReadLine();
-                    var result = await data.SearchForDataAsync(_bandName, _bandGenre);
+                    await data.GetBandDiscographyAsync(_bandName, _bandGenre);
                     break;
             }
         }

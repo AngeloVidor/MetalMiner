@@ -11,6 +11,7 @@ namespace scrap;
 
 public class CollectData
 {
+    private List<BandSearchResponse> bandSearchResponses = new List<BandSearchResponse>();
 
     public async Task<List<BandSearchResponse?>> SearchForDataAsync(string name, string? genre)
     {
@@ -43,8 +44,6 @@ public class CollectData
                         {
                             Console.WriteLine("Bands found:");
 
-                            List<BandSearchResponse> bandSearchResponses = new List<BandSearchResponse>();
-
                             foreach (var bandData in jsonData.AaData)
                             {
                                 HtmlDocument htmlDoc = new HtmlDocument();
@@ -61,9 +60,14 @@ public class CollectData
                                     Country = countryResult
                                 };
                                 bandSearchResponses.Add(bandSearchResponse);
+
                                 Console.WriteLine($"Band: {bandNameResult}, Genre: {genreResult}, Country: {countryResult}");
                             }
-                            return bandSearchResponses;
+                            if (bandSearchResponses.Count > 0 && bandSearchResponses != null)
+                            {
+                                Console.WriteLine("Search completed.");
+                                return bandSearchResponses;
+                            }
                         }
                         else
                         {
@@ -88,9 +92,23 @@ public class CollectData
         return null;
     }
 
-    public async Task GetBandDiscographyAsync(BandSearchResponse searchResponse)
+    public async Task GetBandDiscographyAsync(string bandName, string bandGenre)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("----------------Search for discography----------------");
+
+        var bands = await SearchForDataAsync(bandName, bandGenre);
+        if (bands.Count > 0)
+        {
+            Console.WriteLine("Founded band:");
+            var band = bands.FirstOrDefault(x => x.BandName == bandName);
+            if (band != null)
+            {
+                Console.WriteLine($"Getting discography for band: {band.BandName}, Genre: {band.Genre}, Country: {band.Country}");
+                return;
+            }
+            Console.WriteLine("Band not found.");
+
+        }
     }
 }
 
