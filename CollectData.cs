@@ -99,12 +99,40 @@ public class CollectData
         var bands = await SearchForDataAsync(bandName, bandGenre);
         if (bands.Count > 0)
         {
-            Console.WriteLine("Founded band are:");
+            Console.WriteLine("We found a band!");
             var band = bands.FirstOrDefault(x => x.BandName.Equals(bandName, StringComparison.OrdinalIgnoreCase));
             if (band != null)
             {
                 Console.WriteLine($"Getting discography for band: {band.BandName}, Genre: {band.Genre}, Country: {band.Country}");
-                return;
+
+                string bandParam = Uri.EscapeDataString(band.BandName);
+                string discographyUrl = $"https://www.metal-archives.com/band/discography/id/{band.BandId}/tab/all";
+
+                HttpClient client = new HttpClient();
+                string htmlContent = await client.GetStringAsync(discographyUrl);
+                Console.WriteLine(htmlContent);
+
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(htmlContent);
+
+                //ToDo: Find the BandId {29}
+                //https://www.metal-archives.com/band/discography/id/29/tab/all
+                var albumNodes = doc.DocumentNode.SelectNodes("//div[@id='band_disco']//a[contains(@class, 'demo') or contains(@class, 'other') or contains(@class, 'album')]");
+                //Console.WriteLine(doc.DocumentNode.OuterHtml);
+
+                if (albumNodes != null && albumNodes.Count > 0)
+                {
+                    foreach (var albumNode in albumNodes)
+                    {
+                        var albumName = albumNode.InnerText.Trim();
+                        var albumLink = albumNode.Attributes["href"].Value;
+                        Console.WriteLine($"Album: {albumName}, Link: {albumLink}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No albums found!");
+                }
             }
             else
             {
