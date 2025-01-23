@@ -37,7 +37,7 @@ namespace scrap
 
                         try
                         {
-                            var jsonData = JsonConvert.DeserializeObject<MetalArchievesResponse>(jsonResult);
+                            var jsonData = JsonConvert.DeserializeObject<MetalArchivesResponse>(jsonResult);
 
                             if (jsonData != null && jsonData.AaData.Count > 0)
                             {
@@ -45,7 +45,10 @@ namespace scrap
 
                                 foreach (var bandData in jsonData.AaData)
                                 {
-                                    string bandNameResult = bandData[0];
+                                    HtmlDocument htmlDoc = new HtmlDocument();
+                                    htmlDoc.LoadHtml(bandData[0]);
+
+                                    string bandNameResult = htmlDoc.DocumentNode.InnerText.Trim();
                                     string genreResult = bandData[1];
                                     string countryResult = bandData[2];
                                     Console.WriteLine($"Band: {bandNameResult}, Genre: {genreResult}, Country: {countryResult}");

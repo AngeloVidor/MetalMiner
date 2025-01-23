@@ -9,7 +9,7 @@ class Program
     static async Task Main(string[] args)
     {
         CollectData data = new CollectData();
-        await data.SearchForDataAsync("Spectral Lament", "Atmospheric Black Metal");
+        await data.SearchForDataAsync("Abigor", "");
                 
     }
 }

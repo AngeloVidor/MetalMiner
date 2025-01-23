@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace scrap
 {
-    public class MetalArchievesResponse
+    public class MetalArchivesResponse
     {
         public string Error { get; set; }
         public int TotalRecords { get; set; }
