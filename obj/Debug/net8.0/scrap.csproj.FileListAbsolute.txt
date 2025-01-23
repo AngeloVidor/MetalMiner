@@ -1,0 +1,17 @@
+C:\Users\angel\Desktop\scrap\bin\Debug\net8.0\scrap.exe
+C:\Users\angel\Desktop\scrap\bin\Debug\net8.0\scrap.deps.json
+C:\Users\angel\Desktop\scrap\bin\Debug\net8.0\scrap.runtimeconfig.json
+C:\Users\angel\Desktop\scrap\bin\Debug\net8.0\scrap.dll
+C:\Users\angel\Desktop\scrap\bin\Debug\net8.0\scrap.pdb
+C:\Users\angel\Desktop\scrap\bin\Debug\net8.0\HtmlAgilityPack.dll
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.csproj.AssemblyReference.cache
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.AssemblyInfoInputs.cache
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.AssemblyInfo.cs
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.csproj.CoreCompileInputs.cache
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.csproj.Up2Date
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.dll
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\refint\scrap.dll
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.pdb
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.genruntimeconfig.cache
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\ref\scrap.dll
