@@ -99,14 +99,17 @@ public class CollectData
         var bands = await SearchForDataAsync(bandName, bandGenre);
         if (bands.Count > 0)
         {
-            Console.WriteLine("Founded band:");
-            var band = bands.FirstOrDefault(x => x.BandName == bandName);
+            Console.WriteLine("Founded band are:");
+            var band = bands.FirstOrDefault(x => x.BandName.Equals(bandName, StringComparison.OrdinalIgnoreCase));
             if (band != null)
             {
                 Console.WriteLine($"Getting discography for band: {band.BandName}, Genre: {band.Genre}, Country: {band.Country}");
                 return;
             }
-            Console.WriteLine("Band not found.");
+            else
+            {
+                Console.WriteLine("Band not found.");
+            }
 
         }
     }
