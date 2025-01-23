@@ -15,3 +15,5 @@ C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\refint\scrap.dll
 C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.pdb
 C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.genruntimeconfig.cache
 C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\ref\scrap.dll
+C:\Users\angel\Desktop\scrap\obj\Debug\net8.0\scrap.sourcelink.json
+C:\Users\angel\Desktop\scrap\bin\Debug\net8.0\Newtonsoft.Json.dll
