@@ -10,11 +10,12 @@ class Program
     {
         // CollectData data = new CollectData();
         // await data.SearchForDataAsync("Abigor", "");
+        Console.WriteLine("1. Search for a band");
+        Console.WriteLine("2. Discography of a band");
+        int input = int.Parse(Console.ReadLine());
         Menu menu = new Menu();
-
-        int input = 1;
         await menu.DisplayMenu(input);
-                
+
     }
 }
 

@@ -7,23 +7,41 @@ namespace scrap
 {
     public class Menu
     {
+        private string _bandName;
+        private string _bandGenre;
+
+        public Menu()
+        {
+            _bandName = string.Empty;
+            _bandGenre = string.Empty;
+        }
+
+
         public async Task DisplayMenu(int input)
         {
+            CollectData data = new CollectData();
+
             switch (input)
             {
                 case 1:
                     Console.WriteLine("Enter the name of the band you want to search for:");
-                    string name = Console.ReadLine();
-                    if (name == null)
+                    _bandName = Console.ReadLine();
+                    if (_bandName == null)
                     {
-                        throw new ArgumentNullException(nameof(name));
+                        throw new ArgumentNullException(nameof(_bandName));
                     }
                     Console.WriteLine("Enter the genre of the band you want to search for:");
-                    string? genre = Console.ReadLine();
+                    _bandGenre = Console.ReadLine();
 
-                    CollectData data = new CollectData();
+                    await data.SearchForDataAsync(_bandName, _bandGenre);
+                    break;
 
-                    await data.SearchForDataAsync(name, genre);
+                case 2:
+                    Console.WriteLine("Enter the name of the band you want to see the discography of:");
+                    _bandName = Console.ReadLine();
+                    Console.WriteLine("Enter the genre of the band you want to see the discography of:");
+                    _bandGenre = Console.ReadLine();
+                    var result = await data.SearchForDataAsync(_bandName, _bandGenre);
                     break;
             }
         }
