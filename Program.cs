@@ -3,24 +3,25 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using metallumscraper.Infra.Interfaces;
 using metallumscraper.Infra.Services;
+using metallumscraper.Infra;
 
 class Program
 {
     static async Task Main(string[] args)
     {
         var serviceProvider = new ServiceCollection()
-            .AddScoped<IMetallumService, MetallumService>()  
+            .AddScoped<IMetallumService, MetallumService>()
+                        .AddScoped<IUrlService, UrlService>()
             .BuildServiceProvider();
 
         var metallumService = serviceProvider.GetRequiredService<IMetallumService>();
+        var urlService = serviceProvider.GetRequiredService<IUrlService>();
 
-        Console.WriteLine("Insert the band name:");
-        string bandName = Console.ReadLine();
 
-        Console.WriteLine("Insert the band genre:");
-        string genre = Console.ReadLine();
-
-        string url = await metallumService.BuildBandJsonSearchUrlAsync(bandName, genre);
-        Console.WriteLine($"SearchUrl: {url}");
+        Console.WriteLine("1. Advance Search | Ajax Response");
+        Console.WriteLine("2. Get band ID | String Response");
+        int input = int.Parse(Console.ReadLine());
+        SwitchMenu menu = new SwitchMenu(urlService, metallumService);
+        await menu.ExecuteSwitch(input);
     }
 }

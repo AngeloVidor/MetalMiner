@@ -2,12 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
+using metallumscraper.Infra.Data;
 using metallumscraper.Infra.Interfaces;
+using scrap;
 
 namespace metallumscraper.Infra.Services
 {
     public class MetallumService : IMetallumService
     {
+        private readonly IUrlService _urlService;
+
+        public MetallumService(IUrlService urlService)
+        {
+            _urlService = urlService;
+        }
+
         public Task<string> BuildBandJsonSearchUrlAsync(string name, string genre)
         {
             string baseUrl = "https://www.metal-archives.com/search/ajax-advanced/searching/bands/";
@@ -17,9 +27,42 @@ namespace metallumscraper.Infra.Services
             return Task.FromResult(url);
         }
 
-        public Task<string> GetBandIdAsync(string name)
+        public async Task<string> GetBandIdAsync(string bandName)
         {
-            throw new NotImplementedException();
+            var searchUrl = await _urlService.GetUrlBandOccurrencesAsync(bandName);
+
+            HttpClient client = new HttpClient();
+            var response = await client.GetStringAsync(searchUrl);
+            //Console.WriteLine(response);
+
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(response);
+
+            var bandNodes = doc.DocumentNode.SelectNodes("//a");
+
+            List<string> bandIds = new List<string>();
+
+            if (bandNodes != null)
+            {
+                foreach (var node in bandNodes)
+                {
+                    string bandUrl = node.Attributes["href"].Value;
+                    if (bandUrl.Contains("/bands/") && bandUrl.Split('/').Last().All(char.IsDigit))
+                    {
+                        string responseName = node.InnerText.Trim();
+                        if (responseName.Equals(bandName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            string bandId = bandUrl.Split('/').Last();
+                            bandIds.Add(bandId);
+                            Console.WriteLine($"Band: {bandName}");
+                            Console.WriteLine($"Band ID: {bandId}");
+                            return bandId;
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("No band IDs found.");
+            return "0";
         }
     }
 }
