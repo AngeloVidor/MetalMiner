@@ -8,7 +8,7 @@ namespace metallumscraper.Infra.Interfaces
 {
     public interface IUrlService
     {
-        Task<string> GetUrlBandOccurrencesAsync(string name);
+        Task<string> GetUrlAllBandsOccurrencesAsync(string name);
         Task<string> AdvanceSearchUrlAsync(string name, string? genre);
 
     }

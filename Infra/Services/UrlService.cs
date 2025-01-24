@@ -23,7 +23,7 @@ namespace metallumscraper.Infra.Services
             return url;
         }
 
-        public async Task<string> GetUrlBandOccurrencesAsync(string name)
+        public async Task<string> GetUrlAllBandsOccurrencesAsync(string name)
         {
             string encodedBandName = Uri.EscapeDataString(name);
             string searchUrl = $"https://www.metal-archives.com/bands/{encodedBandName}";

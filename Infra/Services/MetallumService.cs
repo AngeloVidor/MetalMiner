@@ -29,7 +29,7 @@ namespace metallumscraper.Infra.Services
 
         public async Task<string> GetBandIdAsync(string bandName)
         {
-            var searchUrl = await _urlService.GetUrlBandOccurrencesAsync(bandName);
+            var searchUrl = await _urlService.GetUrlAllBandsOccurrencesAsync(bandName);
 
             HttpClient client = new HttpClient();
             var response = await client.GetStringAsync(searchUrl);
@@ -63,6 +63,36 @@ namespace metallumscraper.Infra.Services
             }
             Console.WriteLine("No band IDs found.");
             return "0";
+        }
+
+        public async Task<string> GetBandsProfilesUrlsAsync(string name)
+        {
+
+            var bandOccurrencesUrl = await _urlService.GetUrlAllBandsOccurrencesAsync(name);
+            
+            HttpClient http = new HttpClient();
+            string htmlContent = await http.GetStringAsync(bandOccurrencesUrl);
+            //Console.WriteLine(htmlContent);
+
+            HtmlDocument html = new HtmlDocument();
+            html.LoadHtml(htmlContent);
+
+            var namesNodes = html.DocumentNode.SelectNodes("//div[@id='content_wrapper']//ul/li/a/@href");
+
+            if (namesNodes != null)
+            {
+                foreach (var node in namesNodes)
+                {
+                    string bandUrl = node.Attributes["href"].Value;
+                    Console.WriteLine(bandUrl);
+                    return bandUrl;
+                }
+            }
+            else
+            {
+                Console.WriteLine("namesNodes is null or empty");
+            }
+            return name;
         }
     }
 }

@@ -19,7 +19,8 @@ class Program
 
 
         Console.WriteLine("1. Advance Search | Ajax Response");
-        Console.WriteLine("2. Get band ID | String Response");
+        Console.WriteLine("2. Get Band ID | String Response");
+        Console.WriteLine("3. Get Band Profile | String Response");
         int input = int.Parse(Console.ReadLine());
         SwitchMenu menu = new SwitchMenu(urlService, metallumService);
         await menu.ExecuteSwitch(input);

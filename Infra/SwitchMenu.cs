@@ -10,6 +10,7 @@ namespace metallumscraper.Infra
     {
         private readonly IUrlService _urlService;
         private readonly IMetallumService _metallumService;
+        private string name;
 
         public SwitchMenu(IUrlService urlService, IMetallumService metallumService)
         {
@@ -25,7 +26,7 @@ namespace metallumscraper.Infra
                     Console.WriteLine("1. Advance Search | Ajax Response");
 
                     Console.WriteLine("Band name:");
-                    string name = Console.ReadLine();
+                    name = Console.ReadLine();
 
                     Console.WriteLine("Band genre:");
                     string genre = Console.ReadLine();
@@ -40,11 +41,21 @@ namespace metallumscraper.Infra
                     Console.WriteLine("2. Get band ID | String Response");
 
                     Console.WriteLine("Band name:");
-                    string bandName = Console.ReadLine();
+                    name = Console.ReadLine();
                     if (input == 2)
                     {
-                        string bandId = await _metallumService.GetBandIdAsync(bandName);
+                        string bandId = await _metallumService.GetBandIdAsync(name);
                         Console.WriteLine(bandId);
+                    }
+                    break;
+                case 3:
+                    Console.WriteLine("3. Get Band Profile | String Response");
+                    Console.WriteLine("Band name:");
+                    name = Console.ReadLine();
+                    if (input == 3)
+                    {
+                        string profile = await _metallumService.GetBandsProfilesUrlsAsync(name);
+                        Console.WriteLine(profile);
                     }
                     break;
 
