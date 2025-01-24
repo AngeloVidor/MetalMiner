@@ -11,6 +11,7 @@ namespace metallumscraper.Infra
         private readonly IUrlService _urlService;
         private readonly IMetallumService _metallumService;
         private string name;
+        private long band_Id;
 
         public SwitchMenu(IUrlService urlService, IMetallumService metallumService)
         {
@@ -86,8 +87,8 @@ namespace metallumscraper.Infra
                     name = Console.ReadLine();
 
 
-                    long band_id = await _metallumService.GetBandIdAsync(name);
-                    var discography = await _metallumService.GetBandDiscographyByBandIdAsync(band_id);
+                    band_Id = await _metallumService.GetBandIdAsync(name);
+                    var discography = await _metallumService.GetBandDiscographyByBandIdAsync(band_Id);
                     Console.ForegroundColor = ConsoleColor.Green;
                     foreach (var album in discography)
                     {
@@ -95,6 +96,20 @@ namespace metallumscraper.Infra
                     }
                     Console.ResetColor();
 
+                    break;
+                case 6:
+                    Console.WriteLine("6. Get Album Songs By Album_ID | String Response");
+                    Console.WriteLine("Band name:");
+                    name = Console.ReadLine();
+
+                    band_Id = await _metallumService.GetBandIdAsync(name);
+                    var discoIds = await _metallumService.GetAlbumIdsByBandIdAsync(band_Id);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    foreach (var disco in discoIds)
+                    {
+                        Console.WriteLine(disco);
+                    }
+                    Console.ResetColor();
                     break;
 
             }

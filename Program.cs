@@ -50,10 +50,11 @@ Console.WriteLine(asciiArt);
 
         Console.WriteLine("-----------Menu------------");
         Console.WriteLine("1. Advance Search | Ajax Response");
-        Console.WriteLine("2. Get Band ID | String Response");
+        Console.WriteLine("2. Get Band_ID | String Response");
         Console.WriteLine("3. Get Band Profile | String Response");
-        Console.WriteLine("4. Extract Band ID from URL | String Response");
-        Console.WriteLine("5. Get Band Discography By Band ID | String Response");
+        Console.WriteLine("4. Extract Band_ID from URL | String Response");
+        Console.WriteLine("5. Get Band Discography By Band_ID | String Response");
+        Console.WriteLine("6. Get Album Songs By Album_ID | String Response");
         Console.WriteLine("-----------End------------");
         Console.ResetColor();
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using HtmlAgilityPack;
 using metallumscraper.Infra.Data;
 using metallumscraper.Infra.Interfaces;
@@ -74,9 +75,6 @@ namespace metallumscraper.Infra.Services
                         {
                             string bandId = bandUrl.Split('/').Last();
                             long longId = long.Parse(bandId);
-
-                            Console.WriteLine($"Band: {bandName}");
-                            Console.WriteLine($"Band ID: {bandId}");
                             return longId;
                         }
                     }
@@ -91,7 +89,6 @@ namespace metallumscraper.Infra.Services
             var bandOccurrencesUrl = await _urlService.GetUrlAllBandsOccurrencesAsync(name);
 
             string htmlContent = await _httpClient.GetStringAsync(bandOccurrencesUrl);
-            //Console.WriteLine(htmlContent);
 
             HtmlDocument html = new HtmlDocument();
             html.LoadHtml(htmlContent);
@@ -112,5 +109,28 @@ namespace metallumscraper.Infra.Services
             }
             return name;
         }
+
+        public async Task<List<long>> GetAlbumIdsByBandIdAsync(long bandId)
+        {
+            List<long> albumIds = new List<long>();
+
+            var discos = await GetBandDiscographyByBandIdAsync(bandId);
+            foreach (var disco in discos)
+            {
+                var uri = new Uri(disco);
+                var pathSegments = uri.AbsolutePath.Split('/');
+
+                if (uri.AbsolutePath.StartsWith("/albums/"))
+                {
+                    var albumIdStr = pathSegments.LastOrDefault();
+                    if (long.TryParse(albumIdStr, out var albumId))
+                    {
+                        albumIds.Add(albumId);
+                    }
+                }
+            }
+            return albumIds;
+        }
+
     }
 }
