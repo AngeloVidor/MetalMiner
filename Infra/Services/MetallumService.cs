@@ -12,6 +12,7 @@ namespace metallumscraper.Infra.Services
     public class MetallumService : IMetallumService
     {
         private readonly IUrlService _urlService;
+        private List<string> albumLinks = new List<string>();
 
         public MetallumService(IUrlService urlService)
         {
@@ -27,7 +28,7 @@ namespace metallumscraper.Infra.Services
             return Task.FromResult(url);
         }
 
-        public async Task<string> GetBandDiscographyByBandIdAsync(int bandId)
+        public async Task<List<string>> GetBandDiscographyByBandIdAsync(int bandId)
         {
             string discographyUrl = $"https://www.metal-archives.com/band/discography/id/{bandId}/tab/all";
             HttpClient http = new HttpClient();
@@ -42,10 +43,10 @@ namespace metallumscraper.Infra.Services
                 foreach (var node in discographyNodes)
                 {
                     var albumLink = node.Attributes["href"].Value;
-                    Console.WriteLine(albumLink);
+                    albumLinks.Add(albumLink);
                 }
             }
-            return discographyUrl;
+            return albumLinks;
         }
 
         public async Task<string> GetBandIdAsync(string bandName)

@@ -79,7 +79,10 @@ namespace metallumscraper.Infra
                     var band_id = await _metallumService.GetBandIdAsync(name);
                     int id = Convert.ToInt32(band_id);
                     var discography = await _metallumService.GetBandDiscographyByBandIdAsync(id);
-                    System.Console.WriteLine(discography);
+                    foreach (var album in discography)
+                    {
+                        System.Console.WriteLine(album);
+                    }
                     break;
 
             }
