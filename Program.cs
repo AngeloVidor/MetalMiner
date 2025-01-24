@@ -21,6 +21,7 @@ class Program
         Console.ForegroundColor = ConsoleColor.DarkBlue;
         string asciiArt = @"
 ------------------------------------------------------------------------------------------------------------------------------------------
+                                                            ABOUT THE SYSTEM
 ------------------------------------------------------------------------------------------------------------------------------------------
 ███████████████████████████ This program was made for study and entertainment purposes. None of the content flowing through here will be sold or monetized in any way.
 ███████▀▀▀░░░░░░░▀▀▀███████ This program was made for study and entertainment purposes. None of the content flowing through here will be sold or monetized in any way.
@@ -41,6 +42,7 @@ class Program
 ███████▄░░░░░░░░░░░▄███████ This program was made for study and entertainment purposes. None of the content flowing through here will be sold or monetized in any way.
 ██████████▄▄▄▄▄▄▄██████████ This program was made for study and entertainment purposes. None of the content flowing through here will be sold or monetized in any way.
 ███████████████████████████ This program was made for study and entertainment purposes. None of the content flowing through here will be sold or monetized in any way.
+Developed by {!!Sillenius!!}
 ------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------";
 
