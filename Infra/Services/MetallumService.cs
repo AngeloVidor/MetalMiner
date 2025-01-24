@@ -12,11 +12,13 @@ namespace metallumscraper.Infra.Services
     public class MetallumService : IMetallumService
     {
         private readonly IUrlService _urlService;
+        private readonly HttpClient _httpClient;
         private List<string> albumLinks = new List<string>();
 
-        public MetallumService(IUrlService urlService)
+        public MetallumService(IUrlService urlService, HttpClient httpClient)
         {
             _urlService = urlService;
+            _httpClient = httpClient;
         }
 
         public Task<string> BuildBandJsonSearchUrlAsync(string name, string genre)
@@ -31,8 +33,7 @@ namespace metallumscraper.Infra.Services
         public async Task<List<string>> GetBandDiscographyByBandIdAsync(long bandId)
         {
             string discographyUrl = $"https://www.metal-archives.com/band/discography/id/{bandId}/tab/all";
-            HttpClient http = new HttpClient();
-            var disco = await http.GetStringAsync(discographyUrl);
+            var disco = await _httpClient.GetStringAsync(discographyUrl);
 
             HtmlDocument html = new HtmlDocument();
             html.LoadHtml(disco);
@@ -53,8 +54,7 @@ namespace metallumscraper.Infra.Services
         {
             var searchUrl = await _urlService.GetUrlAllBandsOccurrencesAsync(bandName);
 
-            HttpClient client = new HttpClient();
-            var response = await client.GetStringAsync(searchUrl);
+            var response = await _httpClient.GetStringAsync(searchUrl);
             //Console.WriteLine(response);
 
             HtmlDocument doc = new HtmlDocument();
@@ -90,8 +90,7 @@ namespace metallumscraper.Infra.Services
         {
             var bandOccurrencesUrl = await _urlService.GetUrlAllBandsOccurrencesAsync(name);
 
-            HttpClient http = new HttpClient();
-            string htmlContent = await http.GetStringAsync(bandOccurrencesUrl);
+            string htmlContent = await _httpClient.GetStringAsync(bandOccurrencesUrl);
             //Console.WriteLine(htmlContent);
 
             HtmlDocument html = new HtmlDocument();

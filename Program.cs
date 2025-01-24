@@ -11,7 +11,8 @@ class Program
     {
         var serviceProvider = new ServiceCollection()
             .AddScoped<IMetallumService, MetallumService>()
-                        .AddScoped<IUrlService, UrlService>()
+            .AddScoped<IUrlService, UrlService>()
+            .AddSingleton<HttpClient>()
             .BuildServiceProvider();
 
         var metallumService = serviceProvider.GetRequiredService<IMetallumService>();
