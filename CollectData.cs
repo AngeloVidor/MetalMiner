@@ -54,8 +54,18 @@ public class CollectData
                                 string genreResult = bandData[1];
                                 string countryResult = bandData[2];
 
+                                int bandIdInt = 0;
                                 string bandId = await GetBandIdAsync(name);
-                                int bandIdInt = int.Parse(bandId);
+                                // i'll always end up here when the bandId is too long to fit in an INT.
+                                if (string.IsNullOrEmpty(bandId) || !int.TryParse(bandId, out bandIdInt))
+                                {
+                                    Console.WriteLine("Invalid Band ID or Band ID is empty.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Band ID as integer: {bandIdInt}");
+                                }
+
 
                                 var bandSearchResponse = new BandSearchResponse
                                 {
@@ -171,7 +181,7 @@ public class CollectData
                 string bandUrl = node.Attributes["href"].Value;
                 if (bandUrl.Contains("/bands/") && bandUrl.Split('/').Last().All(char.IsDigit))
                 {
-                    string responseName = node.InnerText.Trim();  
+                    string responseName = node.InnerText.Trim();
                     if (responseName.Equals(bandName, StringComparison.OrdinalIgnoreCase))
                     {
                         string bandId = bandUrl.Split('/').Last();
