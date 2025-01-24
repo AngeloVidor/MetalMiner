@@ -28,7 +28,7 @@ namespace metallumscraper.Infra.Services
             return Task.FromResult(url);
         }
 
-        public async Task<List<string>> GetBandDiscographyByBandIdAsync(int bandId)
+        public async Task<List<string>> GetBandDiscographyByBandIdAsync(long bandId)
         {
             string discographyUrl = $"https://www.metal-archives.com/band/discography/id/{bandId}/tab/all";
             HttpClient http = new HttpClient();
@@ -49,7 +49,7 @@ namespace metallumscraper.Infra.Services
             return albumLinks;
         }
 
-        public async Task<string> GetBandIdAsync(string bandName)
+        public async Task<long> GetBandIdAsync(string bandName)
         {
             var searchUrl = await _urlService.GetUrlAllBandsOccurrencesAsync(bandName);
 
@@ -62,8 +62,6 @@ namespace metallumscraper.Infra.Services
 
             var bandNodes = doc.DocumentNode.SelectNodes("//a");
 
-            List<string> bandIds = new List<string>();
-
             if (bandNodes != null)
             {
                 foreach (var node in bandNodes)
@@ -75,16 +73,17 @@ namespace metallumscraper.Infra.Services
                         if (responseName.Equals(bandName, StringComparison.OrdinalIgnoreCase))
                         {
                             string bandId = bandUrl.Split('/').Last();
-                            bandIds.Add(bandId);
+                            long longId = long.Parse(bandId);
+
                             Console.WriteLine($"Band: {bandName}");
                             Console.WriteLine($"Band ID: {bandId}");
-                            return bandId;
+                            return longId;
                         }
                     }
                 }
             }
             Console.WriteLine("No band IDs found.");
-            return "0";
+            return 0;
         }
 
         public async Task<string> GetBandsProfilesUrlsAsync(string name)

@@ -23,7 +23,7 @@ namespace metallumscraper.Infra
             switch (input)
             {
                 case 1:
-                    Console.WriteLine("1. Advance Search | Ajax Response");
+                    Console.WriteLine("1. Advance Search | Ajax Search Response");
 
                     Console.WriteLine("Band name:");
                     name = Console.ReadLine();
@@ -44,7 +44,7 @@ namespace metallumscraper.Infra
                     name = Console.ReadLine();
                     if (input == 2)
                     {
-                        string bandId = await _metallumService.GetBandIdAsync(name);
+                        long bandId = await _metallumService.GetBandIdAsync(name);
                         Console.WriteLine(bandId);
                     }
                     break;
@@ -58,7 +58,6 @@ namespace metallumscraper.Infra
                         Console.WriteLine(profile);
                     }
                     break;
-
                 case 4:
                     Console.WriteLine("4. Extract Band ID from URL | String Response");
 
@@ -76,9 +75,9 @@ namespace metallumscraper.Infra
                     Console.WriteLine("5. Get Band Discography By Band ID | String Response");
                     Console.WriteLine("Band name:");
                     name = Console.ReadLine();
-                    var band_id = await _metallumService.GetBandIdAsync(name);
-                    int id = Convert.ToInt32(band_id);
-                    var discography = await _metallumService.GetBandDiscographyByBandIdAsync(id);
+
+                    long band_id = await _metallumService.GetBandIdAsync(name);
+                    var discography = await _metallumService.GetBandDiscographyByBandIdAsync(band_id);
                     foreach (var album in discography)
                     {
                         System.Console.WriteLine(album);
