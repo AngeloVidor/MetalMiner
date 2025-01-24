@@ -43,11 +43,11 @@ class Program
 ██████████▄▄▄▄▄▄▄██████████ This program was made for study and entertainment purposes. None of the content flowing through here will be sold or monetized in any way.
 ███████████████████████████ This program was made for study and entertainment purposes. None of the content flowing through here will be sold or monetized in any way.
 Developed by {!!Sillenius!!}
-------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------";
-
 Console.WriteLine(asciiArt);
 
+        Console.WriteLine("");
+        Console.WriteLine("");
         Console.WriteLine("-----------Menu------------");
         Console.WriteLine("1. Advance Search | Ajax Response");
         Console.WriteLine("2. Get Band_ID | String Response");
