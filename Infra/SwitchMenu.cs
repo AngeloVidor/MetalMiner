@@ -59,6 +59,20 @@ namespace metallumscraper.Infra
                     }
                     break;
 
+                case 4:
+                    Console.WriteLine("4. Extract Band ID from URL | String Response");
+
+                    Console.WriteLine("Band name:");
+                    name = Console.ReadLine();
+
+                    var url = await _metallumService.GetBandsProfilesUrlsAsync(name);
+                    if (input == 4)
+                    {
+                        string extractedId = await _urlService.ExtractBandIdFromUrlAsync(url);
+                        Console.WriteLine(extractedId);
+                    }
+                    break;
+
             }
         }
     }

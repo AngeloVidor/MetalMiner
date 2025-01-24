@@ -10,6 +10,7 @@ namespace metallumscraper.Infra.Interfaces
     {
         Task<string> GetUrlAllBandsOccurrencesAsync(string name);
         Task<string> AdvanceSearchUrlAsync(string name, string? genre);
+        Task<string> ExtractBandIdFromUrlAsync(string url);
 
     }
 }

@@ -67,7 +67,6 @@ namespace metallumscraper.Infra.Services
 
         public async Task<string> GetBandsProfilesUrlsAsync(string name)
         {
-
             var bandOccurrencesUrl = await _urlService.GetUrlAllBandsOccurrencesAsync(name);
             
             HttpClient http = new HttpClient();
@@ -84,7 +83,6 @@ namespace metallumscraper.Infra.Services
                 foreach (var node in namesNodes)
                 {
                     string bandUrl = node.Attributes["href"].Value;
-                    Console.WriteLine(bandUrl);
                     return bandUrl;
                 }
             }
