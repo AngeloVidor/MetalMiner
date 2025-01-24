@@ -12,6 +12,7 @@ class Program
         // await data.SearchForDataAsync("Abigor", "");
         Console.WriteLine("1. Search for a band");
         Console.WriteLine("2. Discography of a band");
+        Console.WriteLine("3. Get band Id");
         int input = int.Parse(Console.ReadLine());
         Menu menu = new Menu();
         await menu.DisplayMenu(input);
@@ -49,3 +50,21 @@ class Program
 //         }
 
 
+
+
+
+// </div>
+
+// <div id="band_content">
+//         <div class="tool_strip right writeAction">
+//             <ul>
+//                                                         <li><a title="Report a mistake or additional information for this page" href="javascript:popupReportDialog(1, 29);" class="btn_report_error"> </a></li>
+//                             </ul>
+//         </div>
+
+//         <div id="band_info">
+
+//                         <h1 class="band_name"><a href="https://www.metal-archives.com/bands/Summoning/29">Summoning</a></h1>
+
+
+//                                 <div class="clear block_spacer_5"></div>

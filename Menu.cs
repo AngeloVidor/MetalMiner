@@ -43,6 +43,13 @@ namespace scrap
                     _bandGenre = Console.ReadLine();
                     await data.GetBandDiscographyAsync(_bandName, _bandGenre);
                     break;
+
+                case 3:
+                    Console.WriteLine("Enter the name of the band you want to get the ID:");
+                    _bandName = Console.ReadLine();
+                    await data.GetBandIdAsync(_bandName);
+                    break;
+
             }
         }
     }

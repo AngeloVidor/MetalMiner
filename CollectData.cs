@@ -22,6 +22,7 @@ public class CollectData
         string nameParam = Uri.EscapeDataString(name);
         string genreParam = Uri.EscapeDataString(genre);
         string url = $"{baseUrl}?bandName={nameParam}&genre={genreParam}&country=&yearCreationFrom=&yearCreationTo=&bandNotes=&status=&themes=&location=&bandLabelName=&sEcho=1&iColumns=3&sColumns=&iDisplayStart=0&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2";
+        Console.WriteLine(url);
 
         using (HttpClient client = new HttpClient())
         {
@@ -53,15 +54,23 @@ public class CollectData
                                 string genreResult = bandData[1];
                                 string countryResult = bandData[2];
 
+                                var bandId = await GetBandIdAsync(name);
+                                if (string.IsNullOrEmpty(bandId) || !int.TryParse(bandId, out int bandIdInt))
+                                {
+                                    Console.WriteLine("Convert has failed or bandId is null");
+                                    bandIdInt = -1;
+                                }
+
                                 var bandSearchResponse = new BandSearchResponse
                                 {
                                     BandName = bandNameResult,
                                     Genre = genreResult,
-                                    Country = countryResult
+                                    Country = countryResult,
+                                    BandId = bandIdInt
                                 };
                                 bandSearchResponses.Add(bandSearchResponse);
 
-                                Console.WriteLine($"Band: {bandNameResult}, Genre: {genreResult}, Country: {countryResult}");
+                                Console.WriteLine($"Band: {bandNameResult}, Genre: {genreResult}, Country: {countryResult}, BandId {bandIdInt}");
                             }
                             if (bandSearchResponses.Count > 0 && bandSearchResponses != null)
                             {
@@ -115,7 +124,7 @@ public class CollectData
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(htmlContent);
 
-                //ToDo: Find the BandId {29}
+                //ToDo: Find the BandId {29} || serializar/deserealizar a discografia pra um modelo de {DISCOGRAPHY}
                 //https://www.metal-archives.com/band/discography/id/29/tab/all
                 var albumNodes = doc.DocumentNode.SelectNodes("//div[@id='band_disco']//a[contains(@class, 'demo') or contains(@class, 'other') or contains(@class, 'album')]");
                 //Console.WriteLine(doc.DocumentNode.OuterHtml);
@@ -138,8 +147,37 @@ public class CollectData
             {
                 Console.WriteLine("Band not found.");
             }
-
         }
     }
+
+    public async Task<string> GetBandIdAsync(string bandName)
+    {
+        System.Console.WriteLine("----------Trying to get the Band ID----------");
+        //pegar a URL de bands -> HttmlAgillity -> 1° link -> abre -> URL -> save ID
+        string encodedBandName = Uri.EscapeDataString(bandName);
+        string searchUrl = $"https://www.metal-archives.com/bands/{encodedBandName}";
+
+        HttpClient client = new HttpClient();
+        var response = await client.GetStringAsync(searchUrl);
+        //Console.WriteLine(response);
+
+        HtmlDocument doc = new HtmlDocument();
+        doc.LoadHtml(response);
+
+        var bandNode = doc.DocumentNode.SelectSingleNode("//h1[@class='band_name']/a");
+        Console.WriteLine(bandNode.Attributes);
+        if (bandNode != null)
+        {
+            string bandUrl = bandNode.Attributes["href"].Value;
+            string bandId = bandUrl.Split('/').Last();
+
+            Console.WriteLine($"Band ID: {bandId}");
+            return bandId;
+        }
+        Console.WriteLine("Band not found.");
+        return null;
+
+    }
 }
+
 
