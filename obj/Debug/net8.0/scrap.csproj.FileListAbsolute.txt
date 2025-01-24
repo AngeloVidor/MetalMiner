@@ -36,3 +36,5 @@ C:\Users\angel\Desktop\metallum-scraper\obj\Debug\net8.0\refint\scrap.dll
 C:\Users\angel\Desktop\metallum-scraper\obj\Debug\net8.0\scrap.pdb
 C:\Users\angel\Desktop\metallum-scraper\obj\Debug\net8.0\scrap.genruntimeconfig.cache
 C:\Users\angel\Desktop\metallum-scraper\obj\Debug\net8.0\ref\scrap.dll
+C:\Users\angel\Desktop\metallum-scraper\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\angel\Desktop\metallum-scraper\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
