@@ -54,12 +54,8 @@ public class CollectData
                                 string genreResult = bandData[1];
                                 string countryResult = bandData[2];
 
-                                var bandId = await GetBandIdAsync(name);
-                                if (string.IsNullOrEmpty(bandId) || !int.TryParse(bandId, out int bandIdInt))
-                                {
-                                    Console.WriteLine("Convert has failed or bandId is null");
-                                    bandIdInt = -1;
-                                }
+                                string bandId = await GetBandIdAsync(name);
+                                int bandIdInt = int.Parse(bandId);
 
                                 var bandSearchResponse = new BandSearchResponse
                                 {
@@ -119,7 +115,7 @@ public class CollectData
 
                 HttpClient client = new HttpClient();
                 string htmlContent = await client.GetStringAsync(discographyUrl);
-                Console.WriteLine(htmlContent);
+                //Console.WriteLine(htmlContent);
 
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(htmlContent);
@@ -153,7 +149,7 @@ public class CollectData
     public async Task<string> GetBandIdAsync(string bandName)
     {
         System.Console.WriteLine("----------Trying to get the Band ID----------");
-        //pegar a URL de bands -> HttmlAgillity -> 1° link -> abre -> URL -> save ID
+
         string encodedBandName = Uri.EscapeDataString(bandName);
         string searchUrl = $"https://www.metal-archives.com/bands/{encodedBandName}";
 
@@ -164,19 +160,31 @@ public class CollectData
         HtmlDocument doc = new HtmlDocument();
         doc.LoadHtml(response);
 
-        var bandNode = doc.DocumentNode.SelectSingleNode("//h1[@class='band_name']/a");
-        Console.WriteLine(bandNode.Attributes);
-        if (bandNode != null)
+        var bandNodes = doc.DocumentNode.SelectNodes("//a");
+
+        List<string> bandIds = new List<string>();
+
+        if (bandNodes != null)
         {
-            string bandUrl = bandNode.Attributes["href"].Value;
-            string bandId = bandUrl.Split('/').Last();
-
-            Console.WriteLine($"Band ID: {bandId}");
-            return bandId;
+            foreach (var node in bandNodes)
+            {
+                string bandUrl = node.Attributes["href"].Value;
+                if (bandUrl.Contains("/bands/") && bandUrl.Split('/').Last().All(char.IsDigit))
+                {
+                    string responseName = node.InnerText.Trim();  
+                    if (responseName.Equals(bandName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        string bandId = bandUrl.Split('/').Last();
+                        bandIds.Add(bandId);
+                        Console.WriteLine($"Band: {bandName}");
+                        Console.WriteLine($"Band ID: {bandId}");
+                    }
+                }
+            }
         }
-        Console.WriteLine("Band not found.");
-        return null;
-
+        Console.WriteLine(bandIds.Count > 0 ? "Here's your IDs :)" : "No band IDs found.");
+        System.Console.WriteLine("------------------------------------------------------");
+        return bandName;
     }
 }
 

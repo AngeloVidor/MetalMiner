@@ -123,11 +123,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\angel\\Desktop\\scrap\\scrap.csproj",
+      "projectUniqueName": "C:\\Users\\angel\\Desktop\\metallum-scraper\\scrap.csproj",
       "projectName": "scrap",
-      "projectPath": "C:\\Users\\angel\\Desktop\\scrap\\scrap.csproj",
+      "projectPath": "C:\\Users\\angel\\Desktop\\metallum-scraper\\scrap.csproj",
       "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\angel\\Desktop\\scrap\\obj\\",
+      "outputPath": "C:\\Users\\angel\\Desktop\\metallum-scraper\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SFSupGkuSR8=",
+  "dgSpecHash": "v+o+JGVJpvo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\angel\\Desktop\\scrap\\scrap.csproj",
+  "projectFilePath": "C:\\Users\\angel\\Desktop\\metallum-scraper\\scrap.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\angel\\.nuget\\packages\\htmlagilitypack\\1.11.72\\htmlagilitypack.1.11.72.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
