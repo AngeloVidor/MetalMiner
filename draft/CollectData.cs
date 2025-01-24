@@ -16,7 +16,6 @@ public class CollectData
     public async Task<List<BandSearchResponse?>> SearchForDataAsync(string name, string? genre)
     {
         string baseUrl = "https://www.metal-archives.com/search/ajax-advanced/searching/bands/";
-
         string nameParam = Uri.EscapeDataString(name);
         string genreParam = Uri.EscapeDataString(genre);
         string url = $"{baseUrl}?bandName={nameParam}&genre={genreParam}&country=&yearCreationFrom=&yearCreationTo=&bandNotes=&status=&themes=&location=&bandLabelName=&sEcho=1&iColumns=3&sColumns=&iDisplayStart=0&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2";
@@ -41,7 +40,6 @@ public class CollectData
 
                         if (jsonData != null && jsonData.AaData.Count > 0)
                         {
-
                             foreach (var bandData in jsonData.AaData)
                             {
                                 HtmlDocument htmlDoc = new HtmlDocument();

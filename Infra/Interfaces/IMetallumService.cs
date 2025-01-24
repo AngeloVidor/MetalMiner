@@ -8,5 +8,6 @@ namespace metallumscraper.Infra.Interfaces;
 public interface IMetallumService
 {
     Task<string> BuildBandJsonSearchUrlAsync(string name, string genre);
+    Task<string> GetBandIdAsync(string name);
 }
 
