@@ -24,6 +24,7 @@ namespace scrap
             switch (input)
             {
                 case 1:
+                    Console.WriteLine("-------------Band-Search-------------");
                     Console.WriteLine("Enter the name of the band you want to search for:");
                     _bandName = Console.ReadLine();
                     if (_bandName == null)

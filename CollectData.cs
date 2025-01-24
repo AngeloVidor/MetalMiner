@@ -15,14 +15,12 @@ public class CollectData
 
     public async Task<List<BandSearchResponse?>> SearchForDataAsync(string name, string? genre)
     {
-        Console.WriteLine("Searching for data...");
-
         string baseUrl = "https://www.metal-archives.com/search/ajax-advanced/searching/bands/";
 
         string nameParam = Uri.EscapeDataString(name);
         string genreParam = Uri.EscapeDataString(genre);
         string url = $"{baseUrl}?bandName={nameParam}&genre={genreParam}&country=&yearCreationFrom=&yearCreationTo=&bandNotes=&status=&themes=&location=&bandLabelName=&sEcho=1&iColumns=3&sColumns=&iDisplayStart=0&iDisplayLength=200&mDataProp_0=0&mDataProp_1=1&mDataProp_2=2";
-        Console.WriteLine(url);
+        //Console.WriteLine(url);
 
         using (HttpClient client = new HttpClient())
         {
@@ -43,7 +41,6 @@ public class CollectData
 
                         if (jsonData != null && jsonData.AaData.Count > 0)
                         {
-                            Console.WriteLine("Bands found:");
 
                             foreach (var bandData in jsonData.AaData)
                             {
@@ -54,16 +51,13 @@ public class CollectData
                                 string genreResult = bandData[1];
                                 string countryResult = bandData[2];
 
-                                int bandIdInt = 0;
-                                string bandId = await GetBandIdAsync(name);
+
+                                string bandId = await GetBandIdAsync(bandNameResult);
                                 // i'll always end up here when the bandId is too long to fit in an INT.
-                                if (string.IsNullOrEmpty(bandId) || !int.TryParse(bandId, out bandIdInt))
+                                int bandIdInt = int.Parse(bandId);
+                                if (bandIdInt >= 0)
                                 {
-                                    Console.WriteLine("Invalid Band ID or Band ID is empty.");
-                                }
-                                else
-                                {
-                                    Console.WriteLine($"Band ID as integer: {bandIdInt}");
+                                    Console.WriteLine($"Recieved bandIdInt {bandIdInt}");
                                 }
 
 
@@ -114,7 +108,7 @@ public class CollectData
         var bands = await SearchForDataAsync(bandName, bandGenre);
         if (bands.Count > 0)
         {
-            Console.WriteLine("We found a band!");
+            Console.WriteLine("Just found a band!");
             var band = bands.FirstOrDefault(x => x.BandName.Equals(bandName, StringComparison.OrdinalIgnoreCase));
             if (band != null)
             {
@@ -158,7 +152,7 @@ public class CollectData
 
     public async Task<string> GetBandIdAsync(string bandName)
     {
-        System.Console.WriteLine("----------Trying to get the Band ID----------");
+        Console.WriteLine("-------------Processing-Band-ID-------------");
 
         string encodedBandName = Uri.EscapeDataString(bandName);
         string searchUrl = $"https://www.metal-archives.com/bands/{encodedBandName}";
@@ -188,13 +182,15 @@ public class CollectData
                         bandIds.Add(bandId);
                         Console.WriteLine($"Band: {bandName}");
                         Console.WriteLine($"Band ID: {bandId}");
+                        return bandId;
                     }
                 }
             }
         }
-        Console.WriteLine(bandIds.Count > 0 ? "Here's your IDs :)" : "No band IDs found.");
+        Console.WriteLine("No band IDs found.");
+
         System.Console.WriteLine("------------------------------------------------------");
-        return bandName;
+        return "0";
     }
 }
 

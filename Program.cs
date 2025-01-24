@@ -8,12 +8,14 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        // CollectData data = new CollectData();
-        // await data.SearchForDataAsync("Abigor", "");
+        Console.WriteLine("=> ******* Welcome! ******* <=");
         Console.WriteLine("1. Search for a band");
         Console.WriteLine("2. Discography of a band");
         Console.WriteLine("3. Get band Id");
         int input = int.Parse(Console.ReadLine());
+        Console.WriteLine($"Input: {input}");
+        Console.WriteLine("-------------Menu-Ends-------------");
+
         Menu menu = new Menu();
         await menu.DisplayMenu(input);
 
