@@ -12,5 +12,6 @@ public interface IMetallumService
     Task<string> BuildBandJsonSearchUrlAsync(string name, string genre);
     Task<string> GetBandIdAsync(string name);
     Task<string> GetBandsProfilesUrlsAsync(string name);
+    Task<string> GetBandDiscographyByBandIdAsync(int bandId);
 }
 

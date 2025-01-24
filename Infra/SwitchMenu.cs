@@ -72,6 +72,15 @@ namespace metallumscraper.Infra
                         Console.WriteLine(extractedId);
                     }
                     break;
+                case 5:
+                    Console.WriteLine("5. Get Band Discography By Band ID | String Response");
+                    Console.WriteLine("Band name:");
+                    name = Console.ReadLine();
+                    var band_id = await _metallumService.GetBandIdAsync(name);
+                    int id = Convert.ToInt32(band_id);
+                    var discography = await _metallumService.GetBandDiscographyByBandIdAsync(id);
+                    System.Console.WriteLine(discography);
+                    break;
 
             }
         }

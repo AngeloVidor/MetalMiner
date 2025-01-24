@@ -22,6 +22,7 @@ class Program
         Console.WriteLine("2. Get Band ID | String Response");
         Console.WriteLine("3. Get Band Profile | String Response");
         Console.WriteLine("4. Extract Band ID from URL | String Response");
+        Console.WriteLine("5. Get Band Discography By Band ID | String Response");
 
         int input = int.Parse(Console.ReadLine());
         SwitchMenu menu = new SwitchMenu(urlService, metallumService);

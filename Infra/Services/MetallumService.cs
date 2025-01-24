@@ -27,6 +27,27 @@ namespace metallumscraper.Infra.Services
             return Task.FromResult(url);
         }
 
+        public async Task<string> GetBandDiscographyByBandIdAsync(int bandId)
+        {
+            string discographyUrl = $"https://www.metal-archives.com/band/discography/id/{bandId}/tab/all";
+            HttpClient http = new HttpClient();
+            var disco = await http.GetStringAsync(discographyUrl);
+
+            HtmlDocument html = new HtmlDocument();
+            html.LoadHtml(disco);
+
+            var discographyNodes = html.DocumentNode.SelectNodes("//table//a");
+            if (discographyNodes != null && discographyNodes.Count > 0)
+            {
+                foreach (var node in discographyNodes)
+                {
+                    var albumLink = node.Attributes["href"].Value;
+                    Console.WriteLine(albumLink);
+                }
+            }
+            return discographyUrl;
+        }
+
         public async Task<string> GetBandIdAsync(string bandName)
         {
             var searchUrl = await _urlService.GetUrlAllBandsOccurrencesAsync(bandName);
@@ -68,7 +89,7 @@ namespace metallumscraper.Infra.Services
         public async Task<string> GetBandsProfilesUrlsAsync(string name)
         {
             var bandOccurrencesUrl = await _urlService.GetUrlAllBandsOccurrencesAsync(name);
-            
+
             HttpClient http = new HttpClient();
             string htmlContent = await http.GetStringAsync(bandOccurrencesUrl);
             //Console.WriteLine(htmlContent);
