@@ -16,7 +16,7 @@ namespace metallumscraper.Infra.Services
             {
                 throw new NullReferenceException("Name cannot be null");
             }
-
+            //ToDo: change the query to https://www.metal-archives.com/bands/{parameters} 
             string baseUrl = "https://www.metal-archives.com/search/ajax-advanced/searching/bands/";
             string nameParam = Uri.EscapeDataString(name);
             string genreParam = Uri.EscapeDataString(genre);

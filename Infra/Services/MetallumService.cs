@@ -14,7 +14,7 @@ namespace metallumscraper.Infra.Services
     {
         private readonly IUrlService _urlService;
         private readonly HttpClient _httpClient;
-        private List<string> albumLinks = new List<string>();
+        private List<AlbumData> albums = new List<AlbumData>();
 
         public MetallumService(IUrlService urlService, HttpClient httpClient)
         {
@@ -31,7 +31,7 @@ namespace metallumscraper.Infra.Services
             return Task.FromResult(url);
         }
 
-        public async Task<List<string>> GetBandDiscographyByBandIdAsync(long bandId)
+        public async Task<List<AlbumData>> GetBandDiscographyByBandIdAsync(long bandId)
         {
             string discographyUrl = $"https://www.metal-archives.com/band/discography/id/{bandId}/tab/all";
             var disco = await _httpClient.GetStringAsync(discographyUrl);
@@ -39,16 +39,43 @@ namespace metallumscraper.Infra.Services
             HtmlDocument html = new HtmlDocument();
             html.LoadHtml(disco);
 
+            List<long> AlbumIds = new List<long>();
+
             var discographyNodes = html.DocumentNode.SelectNodes("//table//a");
             if (discographyNodes != null && discographyNodes.Count > 0)
             {
                 foreach (var node in discographyNodes)
                 {
-                    var albumLink = node.Attributes["href"].Value;
-                    albumLinks.Add(albumLink);
+                    var url_album = node.Attributes["href"].Value;
+                    var albumName = node.InnerText;
+
+                    //ToDo: centralize parse in a single method
+                    Uri uri = new Uri(url_album);
+                    var pathSegments = uri.AbsolutePath.Split('/');
+
+                    if (uri.AbsolutePath.StartsWith("/albums/"))
+                    {
+                        var albumIdStr = pathSegments.LastOrDefault();
+                        if (long.TryParse(albumIdStr, out var albumId))
+                        {
+                            AlbumIds.Add(albumId);
+                        }
+                    }
+
+                    var formattedAlbumName = albumName.Replace(" ", "_");
+
+                    var albumData = new AlbumData
+                    {
+                        band_id = bandId,
+                        album_url = url_album,
+                        album_name = formattedAlbumName,
+                        album_ids = AlbumIds
+                    };
+
+                    albums.Add(albumData);
                 }
             }
-            return albumLinks;
+            return albums;
         }
 
         public async Task<long> GetBandIdAsync(string bandName)
@@ -117,7 +144,7 @@ namespace metallumscraper.Infra.Services
             var discos = await GetBandDiscographyByBandIdAsync(bandId);
             foreach (var disco in discos)
             {
-                var uri = new Uri(disco);
+                var uri = new Uri(disco.album_url);
                 var pathSegments = uri.AbsolutePath.Split('/');
 
                 if (uri.AbsolutePath.StartsWith("/albums/"))
@@ -132,5 +159,9 @@ namespace metallumscraper.Infra.Services
             return albumIds;
         }
 
+        public async Task<string> GetAlbumSongsByAlbumIdAsync(long albumId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

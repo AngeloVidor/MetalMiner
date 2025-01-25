@@ -21,16 +21,11 @@ namespace metallumscraper.Infra
 
         public async Task ExecuteSwitch(int input)
         {
-            // Cabeçalho
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("----------- Menu de Opções -----------");
-            Console.ResetColor();
-
             switch (input)
             {
                 case 1:
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("1. Advance Search | Ajax Search Response");
+                    Console.WriteLine("1. Advance Search");
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
@@ -47,7 +42,7 @@ namespace metallumscraper.Infra
 
                 case 2:
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("2. Get Band ID | String Response");
+                    Console.WriteLine("2. Get Band_ID");
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
@@ -61,7 +56,7 @@ namespace metallumscraper.Infra
 
                 case 3:
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("3. Get Band Profile | String Response");
+                    Console.WriteLine("3. Get Band Profile");
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
@@ -75,7 +70,7 @@ namespace metallumscraper.Infra
 
                 case 4:
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("4. Extract Band ID from URL | String Response");
+                    Console.WriteLine("4. Extract Band ID from URL");
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
@@ -91,7 +86,7 @@ namespace metallumscraper.Infra
 
                 case 5:
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("5. Get Band Discography By Band ID | String Response");
+                    Console.WriteLine("5. Get Band Discography By Band ID");
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
@@ -99,18 +94,25 @@ namespace metallumscraper.Infra
 
                     band_Id = await _metallumService.GetBandIdAsync(name);
                     var discography = await _metallumService.GetBandDiscographyByBandIdAsync(band_Id);
-                    Console.ForegroundColor = ConsoleColor.Green;
 
+                    Console.ForegroundColor = ConsoleColor.Green;
                     foreach (var album in discography)
                     {
-                        Console.WriteLine(album);
+                        Console.WriteLine($"Name: {album.album_name}");
+                        System.Console.WriteLine("------------------");
+                        Console.WriteLine($"Band_ID: {album.band_id}");
+                        System.Console.WriteLine("------------------");
+                        Console.WriteLine("Album_IDs: " + string.Join(", ", album.album_ids));
+
                     }
+
+
                     Console.ResetColor();
                     break;
 
                 case 6:
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("6. Get Album Songs By Album ID | String Response");
+                    Console.WriteLine("6. Get Album Songs By Album_ID");
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
@@ -118,13 +120,30 @@ namespace metallumscraper.Infra
 
                     band_Id = await _metallumService.GetBandIdAsync(name);
                     var discoIds = await _metallumService.GetAlbumIdsByBandIdAsync(band_Id);
-                    Console.ForegroundColor = ConsoleColor.Green;
 
+                    Console.ForegroundColor = ConsoleColor.Green;
                     foreach (var disco in discoIds)
                     {
                         Console.WriteLine(disco);
                     }
                     Console.ResetColor();
+                    break;
+                case 7:
+                    System.Console.WriteLine("Band name:");
+                    name = Console.ReadLine();
+                    band_Id = await _metallumService.GetBandIdAsync(name);
+
+                    var albumIds = await _metallumService.GetAlbumIdsByBandIdAsync(band_Id);
+                    foreach (var albumId in albumIds)
+                    {
+                        System.Console.WriteLine($"ID: {albumId}");
+                    }
+
+                    Console.WriteLine("Enter the album ID to view its songs:");
+                    long song_albumId = long.Parse(Console.ReadLine());
+
+                    await _metallumService.GetAlbumSongsByAlbumIdAsync(song_albumId);
+
                     break;
 
                 default:
