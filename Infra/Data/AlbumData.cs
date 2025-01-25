@@ -10,7 +10,6 @@ namespace metallumscraper.Infra.Data
         public long band_id { get; set; }
         public string album_url { get; set; }
         public string album_name { get; set; }
-        
-        public List<long> album_ids { get; set; }
+        public long album_id { get; set; }
     }
 }

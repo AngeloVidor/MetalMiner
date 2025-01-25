@@ -39,7 +39,7 @@ namespace metallumscraper.Infra.Services
             HtmlDocument html = new HtmlDocument();
             html.LoadHtml(disco);
 
-            List<long> AlbumIds = new List<long>();
+            var albums = new List<AlbumData>();
 
             var discographyNodes = html.DocumentNode.SelectNodes("//table//a");
             if (discographyNodes != null && discographyNodes.Count > 0)
@@ -58,21 +58,18 @@ namespace metallumscraper.Infra.Services
                         var albumIdStr = pathSegments.LastOrDefault();
                         if (long.TryParse(albumIdStr, out var albumId))
                         {
-                            AlbumIds.Add(albumId);
+                            var formattedAlbumName = albumName.Replace(" ", "_");
+
+                            var albumData = new AlbumData
+                            {
+                                band_id = bandId,
+                                album_url = url_album,
+                                album_name = formattedAlbumName,
+                                album_id = albumId
+                            };
+                            albums.Add(albumData);
                         }
                     }
-
-                    var formattedAlbumName = albumName.Replace(" ", "_");
-
-                    var albumData = new AlbumData
-                    {
-                        band_id = bandId,
-                        album_url = url_album,
-                        album_name = formattedAlbumName,
-                        album_ids = AlbumIds
-                    };
-
-                    albums.Add(albumData);
                 }
             }
             return albums;

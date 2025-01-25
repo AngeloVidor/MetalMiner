@@ -96,13 +96,14 @@ namespace metallumscraper.Infra
                     var discography = await _metallumService.GetBandDiscographyByBandIdAsync(band_Id);
 
                     Console.ForegroundColor = ConsoleColor.Green;
+
                     foreach (var album in discography)
                     {
-                        Console.WriteLine($"Name: {album.album_name}");
-                        System.Console.WriteLine("------------------");
-                        Console.WriteLine($"Band_ID: {album.band_id}");
-                        System.Console.WriteLine("------------------");
-                        Console.WriteLine("Album_IDs: " + string.Join(", ", album.album_ids));
+                        Console.WriteLine($"Album Name: {album.album_name}");
+                        Console.WriteLine($"Band ID: {album.band_id}");
+                        Console.WriteLine($"Album ID: {album.album_id}");
+                        Console.WriteLine($"Album URL: {album.album_url}");
+                        Console.WriteLine(new string('-', 30)); 
 
                     }
 
