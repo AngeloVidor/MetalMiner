@@ -1,13 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "oAmo7T1MwtQ=",
+  "dgSpecHash": "Hr66+BSrfc8=",
   "success": true,
   "projectFilePath": "C:\\Users\\angel\\Desktop\\metallum-scraper\\scrap.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\angel\\.nuget\\packages\\htmlagilitypack\\1.11.72\\htmlagilitypack.1.11.72.nupkg.sha512",
+    "C:\\Users\\angel\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.1\\microsoft.extensions.dependencyinjection.9.0.1.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.1\\microsoft.extensions.dependencyinjection.abstractions.9.0.1.nupkg.sha512",
-    "C:\\Users\\angel\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\angel\\.nuget\\packages\\microsoft.playwright\\1.50.0-beta-2\\microsoft.playwright.1.50.0-beta-2.nupkg.sha512",
+    "C:\\Users\\angel\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\angel\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
+    "C:\\Users\\angel\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\angel\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
+    "C:\\Users\\angel\\.nuget\\packages\\system.text.json\\6.0.10\\system.text.json.6.0.10.nupkg.sha512"
   ],
   "logs": []
 }

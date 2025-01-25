@@ -12,11 +12,13 @@ class Program
         var serviceProvider = new ServiceCollection()
             .AddScoped<IMetallumService, MetallumService>()
             .AddScoped<IUrlService, UrlService>()
+            .AddScoped<ITablatureHandler, TablatureHandler>()
             .AddSingleton<HttpClient>()
             .BuildServiceProvider();
 
         var metallumService = serviceProvider.GetRequiredService<IMetallumService>();
         var urlService = serviceProvider.GetRequiredService<IUrlService>();
+        var tablatureHandler = serviceProvider.GetRequiredService<ITablatureHandler>();
 
         Console.ForegroundColor = ConsoleColor.DarkBlue;
         string asciiArt = @"
@@ -60,7 +62,7 @@ Developed by {!!Sillenius!!}
         Console.ResetColor();
 
         int input = int.Parse(Console.ReadLine());
-        SwitchMenu menu = new SwitchMenu(urlService, metallumService);
+        SwitchMenu menu = new SwitchMenu(urlService, metallumService, tablatureHandler);
         await menu.ExecuteSwitch(input);
     }
 }

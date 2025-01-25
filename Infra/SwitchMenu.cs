@@ -10,13 +10,15 @@ namespace metallumscraper.Infra
     {
         private readonly IUrlService _urlService;
         private readonly IMetallumService _metallumService;
+        private readonly ITablatureHandler _tablatureHandler;
         private string name;
         private long band_Id;
 
-        public SwitchMenu(IUrlService urlService, IMetallumService metallumService)
+        public SwitchMenu(IUrlService urlService, IMetallumService metallumService, ITablatureHandler tablatureHandler)
         {
             _urlService = urlService;
             _metallumService = metallumService;
+            _tablatureHandler = tablatureHandler;
         }
 
         public async Task ExecuteSwitch(int input)
@@ -158,6 +160,10 @@ namespace metallumscraper.Infra
                         }
                     }
                     Console.ResetColor();
+                    break;
+
+                case 8:
+                    await _tablatureHandler.TakeScreenshotAsync();
                     break;
 
                 default:
