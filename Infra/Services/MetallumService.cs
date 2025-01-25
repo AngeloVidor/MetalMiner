@@ -156,9 +156,28 @@ namespace metallumscraper.Infra.Services
             return albumIds;
         }
 
-        public async Task<string> GetAlbumSongsByAlbumIdAsync(long albumId)
+        public async Task<List<string>> GetAlbumSongsByAlbumIdAsync(long albumId, string album_name, string band_name)
         {
-            throw new NotImplementedException();
+            List<string> Songs = new List<string>();
+
+            string base_url = $"https://www.metal-archives.com/albums/{band_name}/{album_name}/{albumId}";
+            var htmlContent = await _httpClient.GetStringAsync(base_url);
+            //System.Console.WriteLine(htmlContent);
+
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(htmlContent);
+
+            var songsNodes = doc.DocumentNode.SelectNodes("//table[@class='display table_lyrics']//tr/td[@class='wrapWords']");
+            if (songsNodes != null)
+            {
+                foreach (var node in songsNodes)
+                {
+                    string song = node.InnerText.Trim();
+                    Songs.Add(song);
+                }
+            }
+
+            return Songs;
         }
     }
 }

@@ -103,11 +103,9 @@ namespace metallumscraper.Infra
                         Console.WriteLine($"Band ID: {album.band_id}");
                         Console.WriteLine($"Album ID: {album.album_id}");
                         Console.WriteLine($"Album URL: {album.album_url}");
-                        Console.WriteLine(new string('-', 30)); 
+                        Console.WriteLine(new string('-', 30));
 
                     }
-
-
                     Console.ResetColor();
                     break;
 
@@ -129,22 +127,37 @@ namespace metallumscraper.Infra
                     }
                     Console.ResetColor();
                     break;
+
                 case 7:
                     System.Console.WriteLine("Band name:");
                     name = Console.ReadLine();
                     band_Id = await _metallumService.GetBandIdAsync(name);
 
-                    var albumIds = await _metallumService.GetAlbumIdsByBandIdAsync(band_Id);
-                    foreach (var albumId in albumIds)
+                    System.Console.WriteLine("Choose an album");
+                    var discos = await _metallumService.GetBandDiscographyByBandIdAsync(band_Id);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    foreach (var disco in discos)
                     {
-                        System.Console.WriteLine($"ID: {albumId}");
+                        System.Console.WriteLine($"Album Name: {disco.album_name}");
+                        System.Console.WriteLine($"Album ID: {disco.album_id}");
+                        Console.WriteLine("--------------------------");
                     }
+                    Console.ResetColor();
 
                     Console.WriteLine("Enter the album ID to view its songs:");
                     long song_albumId = long.Parse(Console.ReadLine());
 
-                    await _metallumService.GetAlbumSongsByAlbumIdAsync(song_albumId);
-
+                    var selectedAlbum = discos.FirstOrDefault(d => d.album_id == song_albumId);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    if (selectedAlbum != null)
+                    {
+                        var songs = await _metallumService.GetAlbumSongsByAlbumIdAsync(song_albumId, selectedAlbum.album_name, selectedAlbum.album_name);
+                        foreach (var song in songs)
+                        {
+                            System.Console.WriteLine(song);
+                        }
+                    }
+                    Console.ResetColor();
                     break;
 
                 default:

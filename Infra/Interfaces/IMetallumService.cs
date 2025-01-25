@@ -14,6 +14,6 @@ public interface IMetallumService
     Task<string> GetBandsProfilesUrlsAsync(string name);
     Task<List<AlbumData>> GetBandDiscographyByBandIdAsync(long bandId);
     Task<List<long>> GetAlbumIdsByBandIdAsync(long bandId);
-    Task<string> GetAlbumSongsByAlbumIdAsync(long albumId);
+    Task<List<string>> GetAlbumSongsByAlbumIdAsync(long albumId, string album_name, string band_name);
 }
 
