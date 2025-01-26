@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 using metallumscraper.Infra.Interfaces;
 using Microsoft.Playwright;
 
@@ -13,32 +14,40 @@ namespace metallumscraper.Infra.Services
         {
 
         }
-
         public async Task<string> TakeScreenshotAsync()
         {
             using var playwright = await Playwright.CreateAsync();
-            await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+            await using var browser = await playwright.Firefox.LaunchAsync(new BrowserTypeLaunchOptions
             {
                 Headless = true
             });
 
             var page = await browser.NewPageAsync();
-            await page.GotoAsync("https://playwright.dev/dotnet");
-            var screenshot = await page.ScreenshotAsync(new()
-            {
-                Path = @"C:\Users\angel\Desktop\metallum-scraper/screenshot.png"
-            });
+            string baseUrl = "https://www.songsterr.com/a/wsa/megadeth-holy-wars-the-punishment-due-tab-s24033";
+            await page.GotoAsync(baseUrl);
 
-            if(screenshot == null)
+            await page.Locator("//*[@id='tablature']").WaitForAsync();
+
+            var elements = await page.Locator("//*[@id='tablature']//div[@data-player-key='tab']").ElementHandlesAsync();
+
+            int index = 1;
+            foreach (var element in elements)
             {
-                System.Console.WriteLine("Screenshot not taken");
+                Console.WriteLine($"Element screenshot {index}...");
+
+                await element.ScrollIntoViewIfNeededAsync();
+                await page.WaitForTimeoutAsync(500);
+
+                await element.ScreenshotAsync(new ElementHandleScreenshotOptions
+                {
+                    Path = @$"C:\Users\angel\Desktop\metallum-scraper\player_key_screenshot_{index}.png"
+                });
+                Console.WriteLine($"Screenshot of elemnent {index} saved");
+                index++;
             }
-            
 
-            return "1";
-
-
-
+            return $"Capturadas {index - 1} imagens!";
         }
+
     }
 }
