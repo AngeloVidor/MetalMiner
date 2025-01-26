@@ -57,5 +57,8 @@ namespace MetalMiner.Infra.Services
             return $"Captured {index - 1} images!";
         }
 
+
+
+
     }
 }

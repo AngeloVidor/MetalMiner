@@ -58,5 +58,36 @@ namespace MetalMiner.Infra.Services.Songsterr
                 return baseUrl;
             }
         }
+
+
+
+        public async Task<string> SplashTest(string band_name, string song_name)
+        {
+
+            if (!string.IsNullOrEmpty(band_name) && band_name.Contains(" "))
+            {
+                band_name = band_name.Replace(" ", "%20");
+            }
+
+            if (!string.IsNullOrEmpty(song_name) && song_name.Contains(" "))
+            {
+                song_name = song_name.Replace(" ", "%20");
+            }
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"http://localhost:8050/render.html?url=https://www.songsterr.com/?pattern={band_name}%20{song_name}";
+
+                try
+                {
+                    var htmlContent = await client.GetStringAsync(url);
+                    return htmlContent; 
+                }
+                catch (Exception ex)
+                {
+                    return $"Error accessing content: {ex.Message}";
+                }
+            }
+
+        }
     }
 }

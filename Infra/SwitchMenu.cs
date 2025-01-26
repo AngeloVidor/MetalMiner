@@ -171,12 +171,23 @@ namespace MetalMiner.Infra
 
                 case 9:
                     Console.WriteLine("Enther the band name:");
+                    //name = Console.ReadLine();
+
+                    Console.WriteLine("Enther the song name:");
+                    //string song_name = Console.ReadLine();
+
+                    //var response = await _searchEngine.GetTabASync(name, song_name);
+                    //System.Console.WriteLine(response);
+                    break;
+
+                case 10:
+                    Console.WriteLine("Enther the band name:");
                     name = Console.ReadLine();
 
                     Console.WriteLine("Enther the song name:");
                     string song_name = Console.ReadLine();
 
-                    var response = await _searchEngine.GetTabASync(name, song_name);
+                    var response = await _searchEngine.SplashTest(name, song_name);
                     System.Console.WriteLine(response);
                     break;
 
