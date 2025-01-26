@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 using MetalMiner.Infra.Interfaces.Songsterr;
 using Microsoft.Playwright;
 
@@ -61,8 +62,10 @@ namespace MetalMiner.Infra.Services.Songsterr
 
 
 
-        public async Task<string> SplashTest(string band_name, string song_name)
+
+        public async Task<IEnumerable<string>> GetTabsByFilterAsync(string band_name, string song_name)
         {
+            List<string> tabs = new List<string>();
 
             if (!string.IsNullOrEmpty(band_name) && band_name.Contains(" "))
             {
@@ -80,13 +83,28 @@ namespace MetalMiner.Infra.Services.Songsterr
                 try
                 {
                     var htmlContent = await client.GetStringAsync(url);
-                    return htmlContent; 
+
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.LoadHtml(htmlContent);
+
+                    var data_list_nodes = doc.DocumentNode.SelectNodes("//div[@data-list='songs']//a");
+                    if (data_list_nodes != null)
+                    {
+                        foreach (var song in data_list_nodes)
+                        {
+                            var song_tab = song.Attributes["href"].Value;
+                            tabs.Add(song_tab);
+                            System.Console.WriteLine(song_tab);
+                        }
+                    }
+
                 }
                 catch (Exception ex)
                 {
-                    return $"Error accessing content: {ex.Message}";
+                    Console.WriteLine($"Error accessing content: {ex.Message}");
                 }
             }
+            return tabs;
 
         }
     }

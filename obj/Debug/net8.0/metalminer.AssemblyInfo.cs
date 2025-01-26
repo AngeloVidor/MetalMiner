@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("metalminer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04a22a9a340d949c3077d9758f705aeeb27d99e3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6ad043eb39a2069a3ff5f5f4f41027602918cf3")]
 [assembly: System.Reflection.AssemblyProductAttribute("metalminer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("metalminer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
