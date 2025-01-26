@@ -28,6 +28,14 @@ namespace metallumscraper.Infra.Services
 
             await page.Locator("//*[@id='tablature']").WaitForAsync();
 
+            //blocking ads
+            await page.EvaluateAsync(@"() => {
+                const adSection = document.querySelector('#showroom');
+                if (adSection) {
+                    adSection.style.display = 'none';
+                }
+            }");
+
             var elements = await page.Locator("//*[@id='tablature']//div[@data-player-key='tab']").ElementHandlesAsync();
 
             int index = 1;
@@ -46,7 +54,7 @@ namespace metallumscraper.Infra.Services
                 index++;
             }
 
-            return $"Capturadas {index - 1} imagens!";
+            return $"Captured {index - 1} images!";
         }
 
     }
