@@ -23,7 +23,7 @@ namespace metallumscraper.Infra.Services
             });
 
             var page = await browser.NewPageAsync();
-            string baseUrl = "https://www.songsterr.com/a/wsa/megadeth-holy-wars-the-punishment-due-tab-s24033";
+            string baseUrl = "https://www.songsterr.com/a/wsa/pantera-floods-tab-s84836";
             await page.GotoAsync(baseUrl);
 
             await page.Locator("//*[@id='tablature']").WaitForAsync();

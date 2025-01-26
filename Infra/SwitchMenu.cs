@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using metallumscraper.Infra.Interfaces;
+using metallumscraper.Infra.Interfaces.Songsterr;
 
 namespace metallumscraper.Infra
 {
@@ -11,14 +12,16 @@ namespace metallumscraper.Infra
         private readonly IUrlService _urlService;
         private readonly IMetallumService _metallumService;
         private readonly ITablatureHandler _tablatureHandler;
+        private readonly ISearchEngine _searchEngine;
         private string name;
         private long band_Id;
 
-        public SwitchMenu(IUrlService urlService, IMetallumService metallumService, ITablatureHandler tablatureHandler)
+        public SwitchMenu(IUrlService urlService, IMetallumService metallumService, ITablatureHandler tablatureHandler, ISearchEngine searchEngine)
         {
             _urlService = urlService;
             _metallumService = metallumService;
             _tablatureHandler = tablatureHandler;
+            _searchEngine = searchEngine;
         }
 
         public async Task ExecuteSwitch(int input)
@@ -164,6 +167,17 @@ namespace metallumscraper.Infra
 
                 case 8:
                     await _tablatureHandler.TakeScreenshotAsync();
+                    break;
+
+                case 9:
+                    Console.WriteLine("Enther the band name:");
+                    name = Console.ReadLine();
+
+                    Console.WriteLine("Enther the song name:");
+                    string song_name = Console.ReadLine();
+
+                    var response = await _searchEngine.GetTabASync(name, song_name);
+                    System.Console.WriteLine(response);
                     break;
 
                 default:

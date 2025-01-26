@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using metallumscraper.Infra.Interfaces;
 using metallumscraper.Infra.Services;
 using metallumscraper.Infra;
+using metallumscraper.Infra.Services.Songsterr;
+using metallumscraper.Infra.Interfaces.Songsterr;
 
 class Program
 {
@@ -13,12 +15,14 @@ class Program
             .AddScoped<IMetallumService, MetallumService>()
             .AddScoped<IUrlService, UrlService>()
             .AddScoped<ITablatureHandler, TablatureHandler>()
+            .AddScoped<ISearchEngine, SearchEngine>()
             .AddSingleton<HttpClient>()
             .BuildServiceProvider();
 
         var metallumService = serviceProvider.GetRequiredService<IMetallumService>();
         var urlService = serviceProvider.GetRequiredService<IUrlService>();
         var tablatureHandler = serviceProvider.GetRequiredService<ITablatureHandler>();
+        var searchEngine = serviceProvider.GetRequiredService<ISearchEngine>();
 
         Console.ForegroundColor = ConsoleColor.DarkBlue;
         string asciiArt = @"
@@ -58,11 +62,13 @@ Developed by {!!Sillenius!!}
         Console.WriteLine("5. Get Band Discography By Band_ID");
         Console.WriteLine("6. Get Album_Ids By Band_ID");
         Console.WriteLine("7. Get Album Songs");
+        Console.WriteLine("8. Download Tab");
+        Console.WriteLine("9. Tab Search Engine");
         Console.WriteLine("-----------End------------");
         Console.ResetColor();
 
         int input = int.Parse(Console.ReadLine());
-        SwitchMenu menu = new SwitchMenu(urlService, metallumService, tablatureHandler);
+        SwitchMenu menu = new SwitchMenu(urlService, metallumService, tablatureHandler, searchEngine);
         await menu.ExecuteSwitch(input);
     }
 }
