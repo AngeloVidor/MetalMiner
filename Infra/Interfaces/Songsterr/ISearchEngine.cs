@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace metallumscraper.Infra.Interfaces.Songsterr
+namespace MetalMiner.Infra.Interfaces.Songsterr
 {
     public interface ISearchEngine
     {

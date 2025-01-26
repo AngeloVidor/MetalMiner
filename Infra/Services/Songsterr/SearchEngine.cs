@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
-using metallumscraper.Infra.Interfaces.Songsterr;
+using MetalMiner.Infra.Interfaces.Songsterr;
 using Microsoft.Playwright;
 
-namespace metallumscraper.Infra.Services.Songsterr
+namespace MetalMiner.Infra.Services.Songsterr
 {
     public class SearchEngine : ISearchEngine
     {

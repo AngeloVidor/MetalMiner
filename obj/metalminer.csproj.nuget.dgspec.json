@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\angel\\Desktop\\metallum-scraper\\scrap.csproj": {}
+    "C:\\Users\\angel\\Desktop\\MetalMiner\\metalminer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\angel\\Desktop\\metallum-scraper\\scrap.csproj": {
+    "C:\\Users\\angel\\Desktop\\MetalMiner\\metalminer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\angel\\Desktop\\metallum-scraper\\scrap.csproj",
-        "projectName": "scrap",
-        "projectPath": "C:\\Users\\angel\\Desktop\\metallum-scraper\\scrap.csproj",
+        "projectUniqueName": "C:\\Users\\angel\\Desktop\\MetalMiner\\metalminer.csproj",
+        "projectName": "metalminer",
+        "projectPath": "C:\\Users\\angel\\Desktop\\MetalMiner\\metalminer.csproj",
         "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\angel\\Desktop\\metallum-scraper\\obj\\",
+        "outputPath": "C:\\Users\\angel\\Desktop\\MetalMiner\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",

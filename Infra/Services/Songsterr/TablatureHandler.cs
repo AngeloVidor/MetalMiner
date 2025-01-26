@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
-using metallumscraper.Infra.Interfaces;
+using MetalMiner.Infra.Interfaces;
 using Microsoft.Playwright;
 
-namespace metallumscraper.Infra.Services
+namespace MetalMiner.Infra.Services
 {
     public class TablatureHandler : ITablatureHandler
     {

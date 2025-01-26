@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using metallumscraper.Infra.Data;
-using metallumscraper.Infra.Interfaces;
+using MetalMiner.Infra.Data;
+using MetalMiner.Infra.Interfaces;
 
-namespace metallumscraper.Infra.Services
+namespace MetalMiner.Infra.Services
 {
     public class UrlService : IUrlService
     {

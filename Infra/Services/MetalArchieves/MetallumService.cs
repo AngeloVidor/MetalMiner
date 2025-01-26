@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using HtmlAgilityPack;
-using metallumscraper.Infra.Data;
-using metallumscraper.Infra.Interfaces;
+using MetalMiner.Infra.Data;
+using MetalMiner.Infra.Interfaces;
 using scrap;
 
-namespace metallumscraper.Infra.Services
+namespace MetalMiner.Infra.Services
 {
     public class MetallumService : IMetallumService
     {

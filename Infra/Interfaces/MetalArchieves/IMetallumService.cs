@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using metallumscraper.Infra.Data;
+using MetalMiner.Infra.Data;
 using scrap;
 
-namespace metallumscraper.Infra.Interfaces;
+namespace MetalMiner.Infra.Interfaces;
 
 public interface IMetallumService
 {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Hr66+BSrfc8=",
+  "dgSpecHash": "T2jPfrjSn2o=",
   "success": true,
-  "projectFilePath": "C:\\Users\\angel\\Desktop\\metallum-scraper\\scrap.csproj",
+  "projectFilePath": "C:\\Users\\angel\\Desktop\\MetalMiner\\metalminer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\angel\\.nuget\\packages\\htmlagilitypack\\1.11.72\\htmlagilitypack.1.11.72.nupkg.sha512",
     "C:\\Users\\angel\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

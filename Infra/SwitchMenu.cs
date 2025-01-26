@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using metallumscraper.Infra.Interfaces;
-using metallumscraper.Infra.Interfaces.Songsterr;
+using MetalMiner.Infra.Interfaces;
+using MetalMiner.Infra.Interfaces.Songsterr;
 
-namespace metallumscraper.Infra
+namespace MetalMiner.Infra
 {
     public class SwitchMenu
     {

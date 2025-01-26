@@ -907,11 +907,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\angel\\desktop\\metallum-scraper\\scrap.csproj",
-      "projectName": "scrap",
-      "projectPath": "C:\\Users\\angel\\desktop\\metallum-scraper\\scrap.csproj",
+      "projectUniqueName": "C:\\Users\\angel\\Desktop\\MetalMiner\\metalminer.csproj",
+      "projectName": "metalminer",
+      "projectPath": "C:\\Users\\angel\\Desktop\\MetalMiner\\metalminer.csproj",
       "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\angel\\desktop\\metallum-scraper\\obj\\",
+      "outputPath": "C:\\Users\\angel\\Desktop\\MetalMiner\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("scrap")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("metalminer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+31a814e829fe12d9943b361e474b7d409f20f4e5")]
-[assembly: System.Reflection.AssemblyProductAttribute("scrap")]
-[assembly: System.Reflection.AssemblyTitleAttribute("scrap")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee42b18af2fe254a74b1aac40c82160d4ba49b57")]
+[assembly: System.Reflection.AssemblyProductAttribute("metalminer")]
+[assembly: System.Reflection.AssemblyTitleAttribute("metalminer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.

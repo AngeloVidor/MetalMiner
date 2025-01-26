@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace metallumscraper.Infra.Data
+namespace MetalMiner.Infra.Data
 {
     public class AdvanceSearchResponse
 {
