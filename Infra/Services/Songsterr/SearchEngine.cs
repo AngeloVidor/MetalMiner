@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using MetalMiner.Infra.Data;
 using MetalMiner.Infra.Interfaces.Songsterr;
 using Microsoft.Playwright;
 
@@ -60,9 +61,9 @@ namespace MetalMiner.Infra.Services.Songsterr
             }
         }
 
-        public async Task<List<string>> GetAllPossibleMatchesAsync(string band_name, string song_name)
+        public async Task<List<Tablatures>> GetAllPossibleMatchesAsync(string band_name, string song_name)
         {
-            List<string> tabs = new List<string>();
+            List<Tablatures> tabs = new List<Tablatures>();
 
             if (!string.IsNullOrEmpty(band_name) && band_name.Contains(" "))
             {
@@ -90,7 +91,13 @@ namespace MetalMiner.Infra.Services.Songsterr
                         foreach (var tab in data_list_nodes)
                         {
                             var tabUrl = tab.Attributes["href"].Value;
-                            tabs.Add(tabUrl);
+                            string tabId = ExtractTabIdByTabUrlAsync(tabUrl);
+                            Tablatures tablature = new Tablatures
+                            {
+                                Tab_Id = tabId,
+                                Url = tabUrl
+                            };
+                            tabs.Add(tablature);
                         }
                     }
 
