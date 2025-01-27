@@ -60,7 +60,7 @@ namespace MetalMiner.Infra.Services.Songsterr
             }
         }
 
-        public async Task<List<string>> GetTabsByFilterAsync(string band_name, string song_name)
+        public async Task<List<string>> GetAllPossibleMatchesAsync(string band_name, string song_name)
         {
             List<string> tabs = new List<string>();
 

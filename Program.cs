@@ -45,9 +45,8 @@ class Program
 ------------------------------------------------------------------------------------------------------------------------------------------
 >";
         Console.WriteLine(art);
-        Console.WriteLine(">");
-        Console.WriteLine("-----------Menu------------");
-        System.Console.WriteLine((">"));
+        Console.WriteLine("-----------MetalArchieves------------");
+        System.Console.WriteLine(">");
         Console.WriteLine("1. Find Stuff");
         Console.WriteLine("2. Grab Band_ID");
         Console.WriteLine("3. Check Out Band Profile");
@@ -55,14 +54,17 @@ class Program
         Console.WriteLine("5. Get the Band's Discography");
         Console.WriteLine("6. Fetch Album IDs");
         Console.WriteLine("7. Get the Tracks from an Album");
+        Console.WriteLine("--------------------------------------");
+        System.Console.WriteLine(">");
+        Console.WriteLine("-----------Songsterr------------");
+        System.Console.WriteLine(">");
         Console.WriteLine("8. Download a Tab");
-        Console.WriteLine("9. Tab Search Engine");
-        Console.WriteLine("10. Get Tab URLs");
+        Console.WriteLine("9. [OFF]");
+        Console.WriteLine("10. Get All Possible Tab URLs");
         System.Console.WriteLine("11. Get Tabs ID by Tab URLs");
+        Console.WriteLine("--------------------------------------");
         Console.WriteLine(">");
-        Console.WriteLine("-----------End------------");
         Console.ResetColor();
-
 
         int input = int.Parse(Console.ReadLine());
         SwitchMenu menu = new SwitchMenu(urlService, metallumService, tablatureHandler, searchEngine);

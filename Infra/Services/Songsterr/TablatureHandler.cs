@@ -48,7 +48,6 @@ namespace MetalMiner.Infra.Services
                 Directory.CreateDirectory(folderPath);
             }
 
-
             int index = 1;
             foreach (var element in elements)
             {

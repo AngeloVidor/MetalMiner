@@ -175,11 +175,14 @@ namespace MetalMiner.Infra
                     songName = Console.ReadLine();
 
 
-                    var tabFilter = await _searchEngine.GetTabsByFilterAsync(bandName, songName);
+                    var tabFilter = await _searchEngine.GetAllPossibleMatchesAsync(bandName, songName);
+                    
+                    Console.ForegroundColor = ConsoleColor.Green;
                     foreach (var tabf in tabFilter)
                     {
                         Console.WriteLine(tabf);
                     }
+                    Console.ResetColor();
 
                     System.Console.WriteLine("Choose a URL: ");
                     url = Console.ReadLine();
@@ -205,12 +208,13 @@ namespace MetalMiner.Infra
                     Console.WriteLine("Enther the song name:");
                     songName = Console.ReadLine();
 
-                    var urls = await _searchEngine.GetTabsByFilterAsync(bandName, songName);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    var urls = await _searchEngine.GetAllPossibleMatchesAsync(bandName, songName);
                     foreach (var tabUrl in urls)
                     {
                         System.Console.WriteLine(tabUrl);
-
                     }
+                    Console.ResetColor();
                     break;
 
                 case 11:
@@ -221,7 +225,7 @@ namespace MetalMiner.Infra
                     songName = Console.ReadLine();
 
                     Console.ForegroundColor = ConsoleColor.Green;
-                    var tabs = await _searchEngine.GetTabsByFilterAsync(bandName, songName);
+                    var tabs = await _searchEngine.GetAllPossibleMatchesAsync(bandName, songName);
                     if (tabs.Count > 0)
                     {
                         Console.WriteLine($"TabCount: {tabs.Count}");
