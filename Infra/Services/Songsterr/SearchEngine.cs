@@ -93,6 +93,7 @@ namespace MetalMiner.Infra.Services.Songsterr
                             tabs.Add(tabUrl);
                         }
                     }
+
                 }
                 catch (Exception ex)
                 {

@@ -7,6 +7,6 @@ namespace MetalMiner.Infra.Interfaces
 {
     public interface ITablatureHandler
     {
-        Task<string> TakeScreenshotAsync();
+        Task<string> PrintAllVersesAsync(string tabUrl);
     }
 }

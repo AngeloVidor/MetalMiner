@@ -13,7 +13,9 @@ namespace MetalMiner.Infra
         private readonly IMetallumService _metallumService;
         private readonly ITablatureHandler _tablatureHandler;
         private readonly ISearchEngine _searchEngine;
-        private string name;
+        private string songName;
+        private string url;
+        private string bandName;
         private long band_Id;
 
         public SwitchMenu(IUrlService urlService, IMetallumService metallumService, ITablatureHandler tablatureHandler, ISearchEngine searchEngine)
@@ -34,13 +36,13 @@ namespace MetalMiner.Infra
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
-                    name = Console.ReadLine();
+                    bandName = Console.ReadLine();
 
                     Console.WriteLine("Band genre:");
                     string genre = Console.ReadLine();
                     Console.ForegroundColor = ConsoleColor.Green;
 
-                    var advanceSearcUrl = await _urlService.AdvanceSearchUrlAsync(name, genre);
+                    var advanceSearcUrl = await _urlService.AdvanceSearchUrlAsync(bandName, genre);
                     Console.WriteLine(advanceSearcUrl);
                     Console.ResetColor();
                     break;
@@ -51,10 +53,10 @@ namespace MetalMiner.Infra
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
-                    name = Console.ReadLine();
+                    bandName = Console.ReadLine();
                     Console.ForegroundColor = ConsoleColor.Green;
 
-                    long bandId = await _metallumService.GetBandIdAsync(name);
+                    long bandId = await _metallumService.GetBandIdAsync(bandName);
                     Console.WriteLine(bandId);
                     Console.ResetColor();
                     break;
@@ -65,10 +67,10 @@ namespace MetalMiner.Infra
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
-                    name = Console.ReadLine();
+                    bandName = Console.ReadLine();
                     Console.ForegroundColor = ConsoleColor.Green;
 
-                    string profile = await _metallumService.GetBandsProfilesUrlsAsync(name);
+                    string profile = await _metallumService.GetBandsProfilesUrlsAsync(bandName);
                     Console.WriteLine(profile);
                     Console.ResetColor();
                     break;
@@ -79,9 +81,9 @@ namespace MetalMiner.Infra
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
-                    name = Console.ReadLine();
+                    bandName = Console.ReadLine();
 
-                    var url = await _metallumService.GetBandsProfilesUrlsAsync(name);
+                    url = await _metallumService.GetBandsProfilesUrlsAsync(bandName);
                     Console.ForegroundColor = ConsoleColor.Green;
 
                     string extractedId = await _urlService.ExtractBandIdFromUrlAsync(url);
@@ -95,9 +97,9 @@ namespace MetalMiner.Infra
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
-                    name = Console.ReadLine();
+                    bandName = Console.ReadLine();
 
-                    band_Id = await _metallumService.GetBandIdAsync(name);
+                    band_Id = await _metallumService.GetBandIdAsync(bandName);
                     var discography = await _metallumService.GetBandDiscographyByBandIdAsync(band_Id);
 
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -120,9 +122,9 @@ namespace MetalMiner.Infra
                     Console.ResetColor();
 
                     Console.WriteLine("Band name:");
-                    name = Console.ReadLine();
+                    bandName = Console.ReadLine();
 
-                    band_Id = await _metallumService.GetBandIdAsync(name);
+                    band_Id = await _metallumService.GetBandIdAsync(bandName);
                     var discoIds = await _metallumService.GetAlbumIdsByBandIdAsync(band_Id);
 
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -135,8 +137,8 @@ namespace MetalMiner.Infra
 
                 case 7:
                     System.Console.WriteLine("Band name:");
-                    name = Console.ReadLine();
-                    band_Id = await _metallumService.GetBandIdAsync(name);
+                    bandName = Console.ReadLine();
+                    band_Id = await _metallumService.GetBandIdAsync(bandName);
 
                     System.Console.WriteLine("Choose an album");
                     var discos = await _metallumService.GetBandDiscographyByBandIdAsync(band_Id);
@@ -166,7 +168,23 @@ namespace MetalMiner.Infra
                     break;
 
                 case 8:
-                    await _tablatureHandler.TakeScreenshotAsync();
+                    Console.WriteLine("Enter the band name:");
+                    bandName = Console.ReadLine();
+
+                    Console.WriteLine("Enter the song name:");
+                    songName = Console.ReadLine();
+
+
+                    var tabFilter = await _searchEngine.GetTabsByFilterAsync(bandName, songName);
+                    foreach (var tabf in tabFilter)
+                    {
+                        Console.WriteLine(tabf);
+                    }
+
+                    System.Console.WriteLine("Choose a URL: ");
+                    url = Console.ReadLine();
+
+                    await _tablatureHandler.PrintAllVersesAsync(url);
                     break;
 
                 case 9:
@@ -182,12 +200,12 @@ namespace MetalMiner.Infra
 
                 case 10:
                     Console.WriteLine("Enther the band name:");
-                    name = Console.ReadLine();
+                    bandName = Console.ReadLine();
 
                     Console.WriteLine("Enther the song name:");
-                    string song_name = Console.ReadLine();
+                    songName = Console.ReadLine();
 
-                    var urls = await _searchEngine.GetTabsByFilterAsync(name, song_name);
+                    var urls = await _searchEngine.GetTabsByFilterAsync(bandName, songName);
                     foreach (var tabUrl in urls)
                     {
                         System.Console.WriteLine(tabUrl);
@@ -197,26 +215,36 @@ namespace MetalMiner.Infra
 
                 case 11:
                     Console.WriteLine("Enther the band name:");
-                    name = Console.ReadLine();
+                    bandName = Console.ReadLine();
 
                     Console.WriteLine("Enther the song name:");
-                    string songName = Console.ReadLine();
+                    songName = Console.ReadLine();
 
                     Console.ForegroundColor = ConsoleColor.Green;
-                    var tabs = await _searchEngine.GetTabsByFilterAsync(name, songName);
-                    foreach (var tab in tabs)
+                    var tabs = await _searchEngine.GetTabsByFilterAsync(bandName, songName);
+                    if (tabs.Count > 0)
                     {
-                        System.Console.WriteLine(tab);
+                        Console.WriteLine($"TabCount: {tabs.Count}");
+
+                        foreach (var tab in tabs)
+                        {
+                            Console.WriteLine(tab);
+                        }
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Tabs null!");
                     }
                     Console.ResetColor();
 
                     Console.WriteLine("Now choose a URL: ");
-                    var chosenUrl = Console.ReadLine();
-                    var id = _searchEngine.ExtractTabIdByTabUrlAsync(chosenUrl);
+                    url = Console.ReadLine();
+                    var id = _searchEngine.ExtractTabIdByTabUrlAsync(url);
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"Here is your ID: {id}");
                     Console.ResetColor();
                     break;
+
 
                 default:
                     Console.ForegroundColor = ConsoleColor.Red;
