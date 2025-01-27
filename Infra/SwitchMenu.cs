@@ -187,13 +187,40 @@ namespace MetalMiner.Infra
                     Console.WriteLine("Enther the song name:");
                     string song_name = Console.ReadLine();
 
-                    var response = await _searchEngine.GetTabsByFilterAsync(name, song_name);
-                    System.Console.WriteLine(response);
+                    var urls = await _searchEngine.GetTabsByFilterAsync(name, song_name);
+                    foreach (var tabUrl in urls)
+                    {
+                        System.Console.WriteLine(tabUrl);
+
+                    }
+                    break;
+
+                case 11:
+                    Console.WriteLine("Enther the band name:");
+                    name = Console.ReadLine();
+
+                    Console.WriteLine("Enther the song name:");
+                    string songName = Console.ReadLine();
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    var tabs = await _searchEngine.GetTabsByFilterAsync(name, songName);
+                    foreach (var tab in tabs)
+                    {
+                        System.Console.WriteLine(tab);
+                    }
+                    Console.ResetColor();
+
+                    Console.WriteLine("Now choose a URL: ");
+                    var chosenUrl = Console.ReadLine();
+                    var id = _searchEngine.ExtractTabIdByTabUrlAsync(chosenUrl);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Here is your ID: {id}");
+                    Console.ResetColor();
                     break;
 
                 default:
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Opção inválida! Tente novamente.");
+                    Console.WriteLine("Invalid option! Try again.");
                     Console.ResetColor();
                     break;
             }

@@ -176,7 +176,6 @@ namespace MetalMiner.Infra.Services
                     Songs.Add(song);
                 }
             }
-
             return Songs;
         }
     }

@@ -60,10 +60,7 @@ namespace MetalMiner.Infra.Services.Songsterr
             }
         }
 
-
-
-
-        public async Task<IEnumerable<string>> GetTabsByFilterAsync(string band_name, string song_name)
+        public async Task<List<string>> GetTabsByFilterAsync(string band_name, string song_name)
         {
             List<string> tabs = new List<string>();
 
@@ -90,14 +87,12 @@ namespace MetalMiner.Infra.Services.Songsterr
                     var data_list_nodes = doc.DocumentNode.SelectNodes("//div[@data-list='songs']//a");
                     if (data_list_nodes != null)
                     {
-                        foreach (var song in data_list_nodes)
+                        foreach (var tab in data_list_nodes)
                         {
-                            var song_tab = song.Attributes["href"].Value;
-                            tabs.Add(song_tab);
-                            System.Console.WriteLine(song_tab);
+                            var tabUrl = tab.Attributes["href"].Value;
+                            tabs.Add(tabUrl);
                         }
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -105,7 +100,33 @@ namespace MetalMiner.Infra.Services.Songsterr
                 }
             }
             return tabs;
+        }
+
+        public string ExtractTabIdByTabUrlAsync(string url)
+        {
+            if (!string.IsNullOrEmpty(url))
+            {
+                var id = url.Split('-').LastOrDefault();
+                if (id != null)
+                {
+                    return id;
+                }
+            }
+            return url;
 
         }
+
+
+
+
+
+
+
     }
 }
+
+
+
+
+
+

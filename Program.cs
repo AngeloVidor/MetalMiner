@@ -57,6 +57,8 @@ class Program
         Console.WriteLine("7. Get the Tracks from an Album");
         Console.WriteLine("8. Download a Tab");
         Console.WriteLine("9. Tab Search Engine");
+        Console.WriteLine("10. Get Tab URLs");
+        System.Console.WriteLine("11. Get Tabs ID by Tab URLs");
         Console.WriteLine(">");
         Console.WriteLine("-----------End------------");
         Console.ResetColor();
